@@ -9,14 +9,7 @@ config.output = {
 };
 
 config.plugins = config.plugins.concat([
-  new webpack.HotModuleReplacementPlugin(),
-
-  new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify('sit'),
-      'DEBUG': true
-    }
-  })
+  new webpack.HotModuleReplacementPlugin()
 ]);
 
 module.exports = config;

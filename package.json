@@ -1,8 +1,8 @@
 {
   "name": "bp-utils",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "bp directives and services collection",
-  "main": "index.js",
+  "main": "dist/main.bundle.js",
   "scripts": {
     "compile": "npm run build",
     "prepublish": "npm run compile",
@@ -41,10 +41,11 @@
     "run-sequence": "^1.2.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14"
-  },
-  "dependencies": {
+    "webpack": "^1.12.14",
     "angular-component": "^0.1.2",
     "bp-admin-skin": "0.0.6"
+  },
+  "dependencies": {
+
   }
 }

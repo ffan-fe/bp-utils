@@ -1,28 +1,25 @@
+var path = require('path');
 var webpack = require('webpack');
-var path    = require('path');
-var config  = require('./webpack.config');
-var distPath = path.resolve(__dirname, 'dist');
-if(process.env.APP){
-	try{
-		distPath = require('./client/app/components/'+ process.env.APP +'/'+process.env.APP+'.dist.path').default;
-	}catch(e){
-		console.log('警告:无法找到app为'+process.env.APP+'相关dist路径,将使用系统默认路径');
-	}
-}
 
-config.output = {
-  filename: '[name].bundle.js',
-  publicPath: '',
-  path: distPath
+module.exports = {
+  entry: path.resolve(__dirname, 'src/index'),
+  output: {
+    filename: '[name].bundle.js',
+    publicPath: '',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    loaders: [
+      {test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate!babel'},
+      {test: /\.html$/, loader: 'raw'},
+      {test: /\.less$/, loader: 'style!css!less'},
+      {test: /\.css$/, loader: 'style!css'},
+      // IMAGE
+      {
+        test: /.(gif|jpg|png)$/,
+        loader: 'url-loader'
+      }
+    ]
+  },
+  plugins: []
 };
-
-config.plugins = config.plugins.concat([
-
-  new webpack.optimize.UglifyJsPlugin({
-    mangle: {
-      except: ['$super', '$', 'exports', 'require', 'angular']
-    }
-  })
-]);
-
-module.exports = config;
