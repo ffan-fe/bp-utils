@@ -8,10 +8,15 @@ class Controller {
     this.input = 1;
     this.time = 2;
     this.datepickerOption = {
-      minDate: new Date()
+      minDate: new Date(),
+      viewFormat: 'YYYY-MM-DD HH:mm:ss',
+      modelFormat: 'x'
     };
-    this.viewFormat = 'YYYY-MM-DD HH:mm:ss';
-    this.modelFormat = 'x'
+    this.rangepickerOption = {
+      //minDate: new Date(),
+      viewFormat: 'YYYY-MM-DD HH:mm:ss',
+      modelFormat: 'x'
+    };
   }
 }
 

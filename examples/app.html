@@ -1,16 +1,13 @@
 <div class="container" style="height: 600px">
-  <div class="col-xs-3">
-    <uib-datepicker ng-model="vm.time"
-                    class="well well-sm"
-                    date-view-format="vm.viewFormat"
-                    date-model-format="vm.modelFormat"
-                    datepicker-options="vm.datepickerOption">
-    </uib-datepicker>
-
-    <input class="form-control"
-           ng-model="vm.time"
-           date-view-format="vm.viewFormat"
-           date-model-format="vm.modelFormat"
-           type="text"/>
+  <div class="col-xs-4">
+    时间选择器
+    <bp-datepicker ng-model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
+    <label>时间：</label>{{vm.time}}
+  </div>
+  <div class="col-xs-8">
+    时间范围选择器
+    <bp-rangepicker ng-start-model="vm.startTime" ng-end-model="vm.endTime" rangepicker-options="vm.rangepickerOption"></bp-rangepicker>
+    <label>开始时间：</label>{{vm.startTime}}
+    <label>结束时间：</label>{{vm.endTime}}
   </div>
 </div>

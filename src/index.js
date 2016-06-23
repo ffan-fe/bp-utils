@@ -3,9 +3,11 @@
  */
 
 import directives from './directive/directive.js'
+import components from './components/components.js'
 
 let bpUtils = angular.module('bp.utils',[
-  directives.name
+  directives.name,
+  components.name
 ]);
 
 export default bpUtils;
