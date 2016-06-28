@@ -143,7 +143,7 @@ this.rangepickerOption = {
 <bp-checkboxtree list="vm.list" ng-model="vm.form.catagory"></bp-checkboxtree>
 
 vm.list = Restangular.allUrl('goodlist', '/goods/coupon_component/selectCategories').getList().$object;
-
+```
 - bp-checkboxtree
 ```
 示例：
@@ -433,8 +433,6 @@ let vm.Config = {
   ]
 };
 
-
-export default Config;
 
 ```
 #### service
