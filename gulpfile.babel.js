@@ -15,12 +15,13 @@ import webpackDevMiddelware from 'webpack-dev-middleware';
 import webpachHotMiddelware from 'webpack-hot-middleware';
 import colorsSupported      from 'supports-color';
 import minimist from 'minimist';
+import proxy from 'http-proxy-middleware';
 
 let root = 'examples';
 
 // helper method for resolving paths
 let resolveToApp = (glob = '') => {
-  return path.join(root, glob); // app/{glob}
+  return path.join(root, 'app', glob); // app/{glob}
 };
 
 let resolveToComponents = (glob = '') => {
@@ -36,7 +37,8 @@ let paths = {
     path.join(root, 'index.html')
   ],
   entry: path.join(__dirname, root, 'app.js'),
-  output: root
+  output: root,
+  blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**')
 };
 
 // use webpack.config.js to build modules
@@ -71,6 +73,17 @@ gulp.task('webpack', (cb) => {
   });
 });
 
+let chuckNorrisApiProxy = proxy(['/marketcms', '/Public', '/goods', '/Database'], {
+  target: 'http://admin.sit.ffan.com/',
+  // target: 'http://shake2.sit.ffan.com/',
+  changeOrigin: true,
+  logLevel: 'debug',
+  headers:{
+    Cookie:"PHPSESSID=jskbtd5mlakonjnu2fi0bagqi5"
+    // Cookie:"PHPSESSID=akhj759371pvcnpfsf0ihjomb7"
+  }
+});
+
 gulp.task('serve', () => {
   const config = require('./webpack.dev.config');
   config.entry.app = [
@@ -96,11 +109,31 @@ gulp.task('serve', () => {
         },
         publicPath: config.output.publicPath
       }),
-      webpachHotMiddelware(compiler)
+      webpachHotMiddelware(compiler),
+      chuckNorrisApiProxy
     ]
   });
 });
 
 gulp.task('watch', ['serve']);
+
+gulp.task('component', () => {
+  const cap = (val) => {
+    return val.charAt(0).toUpperCase() + val.slice(1);
+  };
+  const name = yargs.argv.name;
+  const parentPath = yargs.argv.parent || '';
+  const destPath = path.join(resolveToComponents(), parentPath, name);
+
+  return gulp.src(paths.blankTemplates)
+    .pipe(template({
+      name: name,
+      upCaseName: cap(name)
+    }))
+    .pipe(rename((path) => {
+      path.basename = path.basename.replace('temp', name);
+    }))
+    .pipe(gulp.dest(destPath));
+});
 
 gulp.task('default', ['serve']);

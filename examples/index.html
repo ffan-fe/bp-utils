@@ -12,7 +12,21 @@
   <base href="">
 </head>
 <body ng-app="app" ng-strict-di ng-cloak>
-<app>
-</app>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-3">
+      <ul class="nav nav-pills nav-stacked">
+        <li role="presentation"><a href="#/">datepicker和rangepicker</a></li>
+        <li role="presentation"><a href="#/add">form tpl</a></li>
+        <li role="presentation"><a href="#/list">list tpl</a></li>
+        <li role="presentation"><a href="#/checkboxtree">checkboxtree</a></li>
+        <li role="presentation"><a href="#/multiselect">multiselect</a></li>
+      </ul>
+    </div>
+    <div class="col-xs-9">
+      <ui-view></ui-view>
+    </div>
+  </div>
+</div>
 </body>
 </html>

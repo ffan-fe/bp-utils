@@ -1,5 +1,3 @@
-### bp 常用 directive 和 service 集
-
 #### requirements
 angular
 
@@ -35,7 +33,7 @@ require: ng-model
 
 ```
 <section>
-    <h2>配置对象支持:</h2>
+    <h5>配置对象支持:</h2>
     <div class="text-muted">datepicker-options 传入datepicker配置对象</div>
     <table class="table table-bordered">
       <thead>
@@ -138,6 +136,10 @@ this.rangepickerOption = {
 
 支持配置字段同bp-datepicker
 ```
+#### template
+
+
+
 #### service
 
 

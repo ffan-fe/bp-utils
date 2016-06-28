@@ -47,5 +47,12 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "angular-ui-router": "^1.0.0-alpha.5",
+    "ffan-bp-menu": "^1.0.3",
+    "ffan-ng-table": "0.0.1",
+    "http-proxy-middleware": "^0.16.0",
+    "restangular": "^1.5.2",
+    "ui-select": "^0.18.0"
+  }
 }

@@ -1,0 +1,19 @@
+<div class="bp-container">
+  <fieldset>
+    <form class="form-horizontal" novalidate>
+      <form-tpl form-config="vm.formConfig"></form-tpl>
+    </form>
+  </fieldset>
+  <div id="error"></div>
+
+
+  <div class="text-center">
+    <button class="btn bp-btn-primary"
+            ng-repeat="btn in vm.btns"
+            ng-click="vm.submitForm()">{{btn.name}}
+    </button>
+    <a class="btn bp-btn-default" ui-sref="list">返回列表</a>
+  </div>
+</div>
+
+

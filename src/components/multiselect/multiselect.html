@@ -1,0 +1,86 @@
+<form class="form-horizontal" ng-submit="vm.searchStore()" novalidate>
+  <div class="col-sm-6"
+       style="margin-bottom: 15px" ng-repeat="field in vm.config.queryFields">
+    <label class="col-sm-4 control-label">{{field.displayName}}:</label>
+
+    <div class="col-sm-8">
+      <input type="text" class="form-control" placeholder="请输入门店名称" ng-model="vm.form[field.name]">
+    </div>
+  </div>
+  <div class="form-group text-center">
+    <button type="submit" class="btn bp-btn-primary" ng-disabled="vm.submitting">查询</button>
+    <button type="reset" class="btn bp-btn-default" ng-click="vm.resetParams()">重置</button>
+  </div>
+</form>
+<table class="table table-bordered table-hover table-condensed popup-table" ng-table="vm.TableParams">
+  <thead>
+  <tr ng-class="{'hide-del-btn': vm.hideDelBtn}">
+    <th class="active operation" ng-if="vm.selectStoreFlag">
+      <input type="checkbox" ng-model="vm.allSelectBoolean" ng-change="vm.allSelectedChange()"> 全选
+    </th>
+    <th class="active">门店名称</th>
+    <th class="active">所属商户</th>
+    <th class="active">经营品牌</th>
+    <th class="active">所属商圈</th>
+    <th class="active operation" ng-if="vm.showStoreFlag && !vm.hideDelBtn">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="row in $data track by $index" ng-class="{'hide-del-btn': vm.hideDelBtn}">
+    <td class="operation" ng-if="vm.selectStoreFlag">
+      <input type="checkbox" ng-model="row.checked">
+    </td>
+    <td title="{{row.storeName}}">{{row.storeName}}</td>
+    <td title="{{row.merchantName}}">{{row.merchantName}}</td>
+    <td title="{{row.brandNames}}">{{row.brandNames}}</td>
+    <td title="{{row.plazaName}}">{{row.plazaName}}</td>
+    <td class="operation" ng-if="vm.showStoreFlag && !vm.hideDelBtn"><a href="javascript:void(0);"
+                                                                        ng-click="vm.delStore(row)">删除</a></td>
+  </tr>
+  </tbody>
+</table>
+<table class="table table-condensed table-bordered table-striped table-hover" ng-table="vm.tableParams">
+  <thead class="text-center">
+  <tr>
+    <th class="active">
+      <input type="checkbox" ng-model="vm.isAllChecked" ng-click="vm.allCheckedChangeHandler(vm.isAllChecked,$data)"> 全选
+    </th>
+    <th ng-repeat="field in vm.listConfig.fields">{{field.displayName}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="row in $data">
+    <td class="text-center">
+      <input type="checkbox"
+             ng-click="vm.checkedChangeHandler(row,$data)"
+             ng-model="row.checked">
+    </td>
+    <td ng-repeat="field in vm.listConfig.fields">{{row[field.name]}}</td>
+  </tr>
+  <tr ng-if="!$data || !$data.length">
+    <td colspan="10" style="text-align: center">
+      <div class="text-center" ng-show="vm.loading">
+        <i class="glyphicon glyphicon-refresh">数据加载中...</i>
+      </div>
+      <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
+        <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div>
+  <span ng-if="vm.selectStoreFlag">已选择 {{vm.selectedNum}} 条记录</span>
+      <span class="import-excel">
+          <a href="{{vm.exportExcelHref}}" target="_blank">
+            <button class="btn btn-default">导出Excel</button>
+          </a>
+          <span>共 {{vm.total}} 条记录</span>
+      </span>
+</div>
+<div class="form-group margin-top">
+  <div class="col-sm-offset-4 col-sm-10">
+    <button class="btn btn-default" ng-click="vm.submitSelectedStore()">确定</button>
+    <button class="btn btn-default col-sm-offset-1" ng-click="vm.close()">取消</button>
+  </div>
+</div>
