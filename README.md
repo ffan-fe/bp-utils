@@ -136,10 +136,307 @@ this.rangepickerOption = {
 
 支持配置字段同bp-datepicker
 ```
+
+- bp-checkboxtree
+```
+示例：
+<bp-checkboxtree list="vm.list" ng-model="vm.form.catagory"></bp-checkboxtree>
+
+vm.list = Restangular.allUrl('goodlist', '/goods/coupon_component/selectCategories').getList().$object;
+
+- bp-checkboxtree
+```
+示例：
+<multi-select config="vm.config" ng-model="vm.multiSelectModel"></multi-select>
+
+vm.config =  {
+              //拉取数据的url
+              url: '/Database/coupon_component/storeQueryList',
+
+              //标识每个选项的字段
+              returnField: 'storeId',
+
+              //生成查询表单的信息w
+              queryFields: [
+                {
+                  type: 'text',
+                  displayName: '门店名称',
+                  name: 'testText'
+                },
+                {
+                  type: 'text',
+                  displayName: '商户名称',
+                  name: 'testText'
+                },
+                {
+                  type: 'text',
+                  displayName: '品牌名称',
+                  name: 'testText'
+                },
+                {
+                  type: 'text',
+                  displayName: '商圈名称',
+                  name: 'testText'
+                }
+              ],
+              //在table中展示的字段
+              tableFields: [
+                {
+                  displayName: '门店名称',
+                  name: 'storeName'
+                },
+                {
+                  displayName: '所属商户',
+                  name: 'merchantName'
+                },
+                {
+                  displayName: '经营品牌',
+                  name: 'brandNames'
+                },
+                {
+                  displayName: '所属商圈',
+                  name: 'plazaName'
+                }
+              ]
+            };
+
+```
 #### template
 
+- form-tpl
+```
+<form-tpl form-config="vm.formConfig"></form-tpl>
+ 示例：
+   vm.formConfig = {
+
+     //生成表单的信息，包含验证及对应错误提示的设置
+     fields: [
+       {
+         type: 'text',
+         displayName: '活动名称',
+         name: 'testText',
+         validateRules: {
+           required: true,
+           minlength: 0,
+           maxlength: 50
+         }
+       },
+       {
+         type: 'text',
+         displayName: '活动标签',
+         name: 'tag',
+         validateRules: {
+           required: false,
+           minlength: 0,
+           maxlength: 50
+         }
+       },
+       {
+         type: 'radio',
+         displayName: '营销工具',
+         name: 'testRadio',
+         validateRules: {
+           required: false
+         },
+         options: [
+           {
+             text: '闪购',
+             value: 'option1'
+           },
+           {
+             text: '领券',
+             value: 'option2'
+           }
+         ]
+       },
+       {
+         type: 'daterange',
+         displayName: '活动时间',
+         name: ['startTime, endTime'],
+         validateRules: {
+           required: true
+         }
+       },
+       {
+         type: 'richtext',
+         displayName: '活动说明',
+         name: 'testrichtext',
+         validateRules: {
+           required: true,
+           minlength: 1,
+           maxlenght: 1000
+         }
+       },
+       {
+         type: 'richtext',
+         displayName: '活动规则',
+         name: 'activityrule',
+         validateRules: {
+           required: true,
+           minlength: 1,
+           maxlenght: 1000
+         }
+       },
+       {
+         type: 'richtext',
+         displayName: '活动说明',
+         name: 'testrichtext',
+         validateRules: {
+           required: true,
+           minlength: 1,
+           maxlenght: 10
+         }
+       },
+       {
+         type: 'checkbox',
+         displayName: '是否公开招募',
+         name: 'testcheckbox',
+         validateRules: {
+           required: false
+         }
+       },
+       {
+         type: 'image',
+         displayName: '测试image',
+         name: 'image',
+         validateRules: {
+           required: false
+         }
+       }
+     ]
+   }
+```
+- list-tpl
+```
+示例：
+<list-tpl config="vm.config"></list-tpl>
 
 
+let vm.Config = {
+  title: '摇一摇活动列表', //页面标题
+
+  //拉取数据的url
+  url: '/marketcms/shakeCityActivity/getActivityList',
+
+  createBtn: {//按钮的权限控制硬编码，并非由配置而来，暂没有想到好的做法
+    displayName: '创建活动',
+    href: '#/city/add',
+    auth: false //注意：只有等于false才会隐藏，undefined或true都会显示,使用 !== false
+  },
+
+  //生成查询表单的信息
+  queryFields: [
+    {
+      type: 'text',
+      displayName: '活动名称',
+      name: 'name'
+    },
+    {
+      type: 'uiselect',
+      displayName: '所属城市',
+      name: 'cityId',
+      url: '/marketcms/shakeBase/getCitys',
+      paramField: 'cityName'
+
+    },
+    {
+      type: 'text',
+      displayName: '提交人',
+      name: 'createUser'
+    },
+    {
+      type: 'select',
+      displayName: '活动状态',
+      name: 'status',
+      options: [
+        {
+          text: '全部',
+          value: ''
+        },
+        {
+          text: '已保存',
+          value: '1'
+        },
+        {
+          text: '待审批',
+          value: '2'
+        },
+        {
+          text: '已同意',
+          value: '3'
+        },
+        {
+          text: '已驳回',
+          value: '4'
+        },
+        {
+          text: '已暂停',
+          value: '5'
+        },
+        {
+          text: '已结束',
+          value: '6'
+        }
+      ]
+    },
+    {
+      type: 'daterange',
+      displayName: '活动时间',
+      name: ['startTime', 'endTime']
+    }
+  ],
+  //在table中展示的字段
+  tableFields: [
+    {
+      displayName: '活动编号',
+      name: 'code'
+    },
+    {
+      displayName: '活动名称',
+      name: 'name'
+    },
+    {
+      displayName: '开始时间',
+      name: 'startTime'
+    },
+    {
+      displayName: '截止时间',
+      name: 'endTime'
+    },
+    {
+      displayName: '提交人',
+      name: 'createUserName'
+    },
+    {
+      displayName: '所属城市',
+      name: 'cityName'
+    },
+    {
+      displayName: '活动位置',
+      name: 'plazaName'
+    },
+    {
+      displayName: '优先级',
+      name: 'priority'
+    },
+    {
+      displayName: '活动状态',
+      name: 'status'
+    }
+  ],
+  //table内的操作按钮
+  operations: [
+    {
+      displayName: '查看',
+      href: '#/city/detail/' //接受三种字段：state, href, action. action函数，接收当前条目id
+    }
+  ]
+};
+
+
+export default Config;
+
+```
 #### service
 
 
