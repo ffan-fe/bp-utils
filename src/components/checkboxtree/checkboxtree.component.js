@@ -7,7 +7,8 @@ let checkboxtreeComponent = {
   bindings: {
     list: '=',
     ngDisabled: '=',
-    ngModel: '='
+    ngModel: '=',
+    config: '<'
   },
   template,
   controller,

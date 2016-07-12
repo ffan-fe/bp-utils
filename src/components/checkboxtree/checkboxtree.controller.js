@@ -1,6 +1,8 @@
+import config from './default.config.js'
 class CheckboxtreeController {
   constructor() {
     this.name = 'checkboxtree';
+    this.config = Object.assign({}, config, this.config);
     this.ngModel ? '' : this.ngModel = [];
   }
 
@@ -20,7 +22,7 @@ class CheckboxtreeController {
    * 3. 更新保存已选中节点的数组;
    */
   nodeClickHandler(node) {
-    if (node.isLeaf) {
+    if (!node[this.config.fieldOfChildren]) {
       this.toggleUpNode(node);
     } else {
       this.toggleUpNode(node);
@@ -55,8 +57,8 @@ class CheckboxtreeController {
    * 根据当前节点的checked状态来向下改变子级节点的状态
    */
   toggleDownNode(node) {
-    if (node.children) {
-      node.children.forEach((item) => {
+    if (node[this.config.fieldOfChildren]) {
+      node[this.config.fieldOfChildren].forEach((item) => {
         item.checked = node.checked;
         this.toggleDownNode(item);
       })
@@ -72,8 +74,8 @@ class CheckboxtreeController {
       this.ngModel.push(node);
     }else{
       let position;
-      this.ngModel.forEach(function(item, index){
-        if(item.categoryId == node.categoryId){
+      this.ngModel.forEach((item, index) => {
+        if(item[this.config.fieldOfId] == node[this.config.fieldOfId]){
           position = index;
           return;
         }
@@ -82,6 +84,15 @@ class CheckboxtreeController {
     }
     this.ngModel = angular.copy(this.ngModel);
     console.log(this.ngModel)
+  }
+
+  /**
+   * 根据ng-model传进来的checkedItems，来处理list，设置节点checked属性
+   * @param list
+   * @param checkedItems
+   */
+  formatList(list, checkedItems){
+
   }
 
   /**
@@ -94,9 +105,9 @@ class CheckboxtreeController {
   getSiblings(node) {
     if(node.parent){
       let parent = this.getNode(node.parent, this.list);
-      let copy = angular.copy(parent.children);
+      let copy = angular.copy(parent[this.config.fieldOfChildren]);
       copy.forEach((item, index) => {
-        if (item.categoryId == node.categoryId) {
+        if (item[this.config.fieldOfId] == node[this.config.fieldOfId]) {
           copy.splice(index, 1);
         }
       });
@@ -110,17 +121,17 @@ class CheckboxtreeController {
    */
   getNode(id, list) {
     let targetNode;
-    function walkList(id, list){
+    let walkList = (id, list) => {
       list.forEach(item => {
-        if (item.categoryId == id) {
+        if (item[this.config.fieldOfId] == id) {
           targetNode = item;
           return false;
         }
-        if (item.children) {
-          walkList(id, item.children)
+        if (item[this.config.fieldOfChildren]) {
+          walkList(id, item[this.config.fieldOfChildren])
         }
       });
-    }
+    };
     walkList(id, list);
     console.log('targetNode', targetNode);
     return targetNode;

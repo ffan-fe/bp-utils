@@ -5,7 +5,9 @@ class MultiselectController {
     this.name = 'multiselect';
     this.checkedItems = this.checkedItems ? this.checkedItems : []; //保存选中条目的数组
     this.config = Object.assign({}, config, this.config);
-    this.idField = this.config.returnField;
+    this.idField = this.config.uniqueField;
+    //标识是否返回整条信息，默认返回uniqueField值的数组
+    this.flag = this.config.returnModel && this.config.returnModel == 'all';
     this.listConfig = {
       url: this.config.url,
       //生成表格的字段
@@ -17,8 +19,8 @@ class MultiselectController {
       counts: [],
       getData: params => {
         let paramData = angular.extend({
-          offset: params.url().page,
-          limit: 10
+          [this.config.tableConfig.pageName]: params.url().page,
+          limit: this.config.tableConfig.limit
           }, this.form);
         this.loading = true;
         return $http({
@@ -34,6 +36,13 @@ class MultiselectController {
         })
       }
     });
+
+    this.config.initContrl ? this.config.initContrl(this) : '';
+
+
+    this.search = function(){
+      this.tableParams.parameters({page: 1}).reload();
+    };
   }
 
   /**
@@ -44,7 +53,11 @@ class MultiselectController {
   checkedChangeHandler(row, data) {
     if (row.checked) {
       let count = 0;
-      this.checkedItems.push(row[this.idField]);
+      if(this.flag){
+        this.checkedItems.push(row);
+      }else{
+        this.checkedItems.push(row[this.idField]);
+      }
       data.forEach(item => {
         item.checked ? count++ : '';
       });
@@ -54,7 +67,11 @@ class MultiselectController {
       this.checkedItems = angular.copy(this.checkedItems);
     } else {
       this.isAllChecked = false;
-      this.remove(this.checkedItems, row[this.idField]);
+      if(this.flag){
+        this.remove(this.checkedItems, row[this.idField], true, this.idField);
+      }else{
+        this.remove(this.checkedItems, row[this.idField]);
+      }
       this.checkedItems = angular.copy(this.checkedItems);
 
     }
@@ -71,7 +88,17 @@ class MultiselectController {
     if (isAllChecked) {
       data.forEach(item => {
         item.checked = true;
-        if (!this.checkedItems.includes(item[this.idField])) {
+        let isInclude = false; //标识是否checkedItems中包含指定的item
+        if(this.flag){
+          this.checkedItems.forEach(ele => {
+            if(item[this.idField] == ele[this.idField]){
+              isInclude = true;
+            }
+          });
+        }else{
+          isInclude = this.checkedItems.includes(item[this.idField])
+        }
+        if (!isInclude) {
           this.checkedChangeHandler(item, data);
         }
       });
@@ -90,7 +117,17 @@ class MultiselectController {
   responseFormat(response) {
     let count = 0;
     response.forEach(item => {
-      if (this.checkedItems.includes(item[this.idField])) {
+      let isInclude = false; //标识是否checkedItems中包含指定的item
+      if(this.flag){
+        this.checkedItems.forEach(ele => {
+          if(item[this.idField] == ele[this.idField]){
+            isInclude = true;
+          }
+        });
+      }else{
+        isInclude = this.checkedItems.includes(item[this.idField])
+      }
+      if (isInclude) {
         count++;
         item.checked = true;
       } else {
@@ -108,9 +145,20 @@ class MultiselectController {
    * 从array中移除element
    * @param array
    * @param element
+   * @param isObject 指示element是否为object
+   * @param idFeild 唯一标识每一行的字段
    */
-  remove(array, element) {
-    let index = array.indexOf(element);
+  remove(array, element, isObject, idFeild) {
+    let index;
+    if (isObject) {
+      array.forEach(function (item, indx) {
+        if (item[idFeild] == element) {
+          index = indx;
+        }
+      });
+    } else {
+      index = array.indexOf(element);
+    }
     if (index > -1) {
       array.splice(index, 1);
     }

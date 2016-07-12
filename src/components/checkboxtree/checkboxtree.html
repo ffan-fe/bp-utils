@@ -5,7 +5,7 @@
 </div>
 <script type="text/ng-template" id="goods_nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content">
-    <a class="toggle-btn" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+    <a class="toggle-btn" ng-if="node[vm.config.fieldOfChildren] && node[vm.config.fieldOfChildren].length > 0" data-nodrag ng-click="toggle(this)">
       <span class="glyphicon"
             ng-class="{
           'glyphicon-chevron-right': collapsed,
@@ -19,15 +19,15 @@
              ng-disabled="vm.ngDisabled"/>
       <span class="glyphicon goods-node-icon"
             ng-class="{
-          'glyphicon-folder-open': !node.isLeaf && !collapsed,
-          'glyphicon-folder-close': !node.isLeaf && collapsed,
-          'glyphicon-file': node.isLeaf
+          'glyphicon-folder-open': node[vm.config.fieldOfChildren] && !collapsed,
+          'glyphicon-folder-close': node[vm.config.fieldOfChildren] && collapsed,
+          'glyphicon-file': !node[vm.config.fieldOfChildren]
         }"></span>
-      {{node.categoryName || "地级市地方"}}
+      {{node[vm.config.fieldOfName] || "地级市地方"}}
     </label>
   </div>
-  <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
-    <li ng-repeat="node in node.children" ui-tree-node ng-include="'goods_nodes_renderer.html'" collapsed="true">
+  <ol ui-tree-nodes="" ng-model="node[vm.config.fieldOfChildren]" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node[vm.config.fieldOfChildren]" ui-tree-node ng-include="'goods_nodes_renderer.html'" collapsed="true">
     </li>
   </ol>
 </script>
