@@ -144,8 +144,8 @@ this.rangepickerOption = {
 <bp-checkboxtree list="vm.list" ng-model="vm.form.catagory"></bp-checkboxtree>
 
 vm.list = Restangular.allUrl('goodlist', '/goods/coupon_component/selectCategories').getList().$object;
-
-- bp-checkboxtree
+```
+- multi-select
 ```
 示例：
 <multi-select config="vm.config" ng-model="vm.multiSelectModel"></multi-select>
@@ -434,8 +434,6 @@ let vm.Config = {
   ]
 };
 
-
-export default Config;
 
 ```
 #### service
