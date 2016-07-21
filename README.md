@@ -141,9 +141,26 @@ this.rangepickerOption = {
 - bp-checkboxtree
 ```
 示例：
-<bp-checkboxtree list="vm.list" ng-model="vm.form.catagory"></bp-checkboxtree>
+<bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.form.cities" config="vm.config"></bp-checkboxtree>
 
-vm.list = Restangular.allUrl('goodlist', '/goods/coupon_component/selectCategories').getList().$object;
+//拉去列表数据的promise
+this.loadPromise = $http.get('/Database/coupon_component/selectCity');
+
+//这个配置用于避免或减少数据转换
+this.config = {
+      //指示子节点的字段名
+      fieldOfChildren: 'child',
+      //指示节点名的字段
+      fieldOfName: 'name',
+      //指示节点id的字段
+      fieldOfId: 'categoryId'
+};
+
+//约定：所有抛到后端的都放到这个键下
+this.form = {};
+
+
+注意：ng-model中的每条数据必须包含节点id才能正确回填
 ```
 - multi-select
 ```
@@ -151,55 +168,141 @@ vm.list = Restangular.allUrl('goodlist', '/goods/coupon_component/selectCategori
 <multi-select config="vm.config" ng-model="vm.multiSelectModel"></multi-select>
 
 vm.config =  {
-              //拉取数据的url
-              url: '/Database/coupon_component/storeQueryList',
+               //拉取数据的url
+               url: '/Database/coupon_component/storeQueryList',
 
-              //标识每个选项的字段
-              returnField: 'storeId',
+               //标识每个选项的字段，用于选中选项的查询操作
+               uniqueField: 'storeId',
 
-              //生成查询表单的信息w
-              queryFields: [
-                {
-                  type: 'text',
-                  displayName: '门店名称',
-                  name: 'testText'
-                },
-                {
-                  type: 'text',
-                  displayName: '商户名称',
-                  name: 'testText'
-                },
-                {
-                  type: 'text',
-                  displayName: '品牌名称',
-                  name: 'testText'
-                },
-                {
-                  type: 'text',
-                  displayName: '商圈名称',
-                  name: 'testText'
-                }
-              ],
-              //在table中展示的字段
-              tableFields: [
-                {
-                  displayName: '门店名称',
-                  name: 'storeName'
-                },
-                {
-                  displayName: '所属商户',
-                  name: 'merchantName'
-                },
-                {
-                  displayName: '经营品牌',
-                  name: 'brandNames'
-                },
-                {
-                  displayName: '所属商圈',
-                  name: 'plazaName'
-                }
-              ]
-            };
+               //默认返回uniqueField值的数组
+               //returnModel: 'all',
+
+               //生成查询表单的信息w
+               queryFields: [
+                 {
+                   type: 'text',
+                   displayName: '门店名称',
+                   name: 'storeName'
+                 },
+                 {
+                   type: 'text',
+                   displayName: '商户名称',
+                   name: 'merchantName'
+                 },
+                 {
+                   type: 'text',
+                   displayName: '品牌名称',
+                   name: 'brandNames'
+                 },
+                 {
+                   type: 'text',
+                   displayName: '商圈名称',
+                   name: 'plazaName'
+                 }
+               ],
+               //在table中展示的字段
+               tableFields: [
+                 {
+                   displayName: '门店名称',
+                   name: 'storeName'
+                 },
+                 {
+                   displayName: '所属商户',
+                   name: 'merchantName'
+                 },
+                 {
+                   displayName: '经营品牌',
+                   name: 'brandNames'
+                 },
+                 {
+                   displayName: '所属商圈',
+                   name: 'plazaName'
+                 }
+               ],
+
+               //ng-table的配置项
+               tableConfig: {
+                 limit: 10, //每页多少个
+                 pageName: 'page', //后端接受的页码字段名
+                 excel: false //是否需要导出excel
+               },
+
+               //table内的操作按钮
+               operations: [
+                 {
+                   displayName: '查看',
+                   href: '#/city/detail/' //接受三种字段：state, href, action. action函数，接收当前条目id
+                 },
+                 {
+                   displayName: '删除',
+                   itemId: 'id', //标识每一列数据唯一性的字段名，它的值会作为第一个参数传给action
+                   action: function (itemId, tableParams) {
+                     tableParams.parameters({page: 1}).reload();
+                   }
+                 }
+               ],
+
+               //获得multiselect controller的引用来初始化this,这个函数会在读取配置后自动执行 initContrl
+               //initContrl: function(this){
+               //  //do sth
+               // }
+             };
+
+
+支持对特定行disable状态的控制: 根据list中isDisable来判断
+
+注意:
+- 配置中拉取数据的url，在component内使用get请求拉去数据；
+- 如果get请求需要传一些固定的参数，我的做法是直接拼在url;
+- url拉过来的数据必须符合特定的结构：
+  eg:{
+     totalCount: 20088,
+     items: [
+     {
+     brandNames: "我愿意",
+     storeId: 2036302,
+     storeName: "I DO",
+     merchantName: "福建若可投资有限公司（仓山万达珠宝店）",
+     plazaName: "福州仓山万达广场",
+     storeNo: null,
+     businessTypeName: null
+     },
+      ...
+     ]
+     }
+  要保证response.data.items 是一个list;
+  如果不符合需要转换数据结构，
+  我的做法：拦截http请求转结构；
+  推荐使用restangular,提供更方便的api
+  RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+      let extractedData;
+      // .. to look for getList operations
+      if (operation === "getList") {
+        console.log(data);
+        // .. and handle the data and meta data
+        extractedData = data.data;
+      } else {
+        extractedData = data;
+      }
+      return extractedData;
+    });
+
+  如果后端不符合restful，可以这样：
+  $httpProvider.interceptors.push(function($q, dependency1, dependency2) {
+    return {
+     'request': function(config) {
+         // do sth
+      },
+
+      'response': function(response) {
+         // do sth
+      }
+    };
+  });
+
+ 更详细的介绍见这里：https://docs.angularjs.org/api/ng/service/$http;
+
+ 自己的做法是尽量把数据转换从业务逻辑剥离放到这；
 
 ```
 #### template
@@ -437,6 +540,15 @@ let vm.Config = {
 
 ```
 #### service
+- bpApi
+
+```
+简化和统一$http post和get传递参数的api
+
+用法：
+bpApi.post('url', {})
+bpApi.get('url', {})
+```
 
 
 

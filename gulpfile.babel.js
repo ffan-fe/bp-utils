@@ -79,7 +79,7 @@ let chuckNorrisApiProxy = proxy(['/marketcms', '/Public', '/goods', '/Database']
   changeOrigin: true,
   logLevel: 'debug',
   headers:{
-    Cookie:"PHPSESSID=jskbtd5mlakonjnu2fi0bagqi5"
+    Cookie:"PHPSESSID=4i2d3ve59ligktdcame5ra5vo5"
     // Cookie:"PHPSESSID=akhj759371pvcnpfsf0ihjomb7"
   }
 });
