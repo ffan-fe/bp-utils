@@ -3,6 +3,11 @@ class CheckboxtreeController {
   constructor() {
     this.name = 'checkboxtree';
     this.config = Object.assign({}, config, this.config);
+    this.listPromise.then(responce => {
+      console.log('responce list', responce);
+      this.list = responce;
+      this.formatList(this.list, this.ngModel);
+    });
     this.ngModel ? '' : this.ngModel = [];
   }
 
@@ -49,6 +54,7 @@ class CheckboxtreeController {
       console.log('parent', parent);
       console.log('node.checked', node.checked);
       parent.checked = node.checked;
+      this.updateModel(parent);
       this.toggleUpNode(parent);
     }
   }
@@ -60,6 +66,7 @@ class CheckboxtreeController {
     if (node[this.config.fieldOfChildren]) {
       node[this.config.fieldOfChildren].forEach((item) => {
         item.checked = node.checked;
+        this.updateModel(item);
         this.toggleDownNode(item);
       })
     }
@@ -92,6 +99,15 @@ class CheckboxtreeController {
    * @param checkedItems
    */
   formatList(list, checkedItems){
+    console.log('checkedItems', checkedItems);
+
+    checkedItems.forEach(item => {
+      let targetNode = this.getNode(item[this.config.fieldOfId], list);
+      console.log('targetNode in formatList', targetNode);
+      if(targetNode){
+        targetNode.checked = true;
+      }
+    });
 
   }
 

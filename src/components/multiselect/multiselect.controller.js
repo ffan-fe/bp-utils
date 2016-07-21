@@ -14,7 +14,7 @@ class MultiselectController {
       fields: this.config.tableFields
     };
     this.tableParams = new NgTableParams({
-      count: 10  //每页几条
+      count: this.config.tableConfig.limit || 10  //每页几条
     }, {
       counts: [],
       getData: params => {
@@ -116,24 +116,29 @@ class MultiselectController {
    */
   responseFormat(response) {
     let count = 0;
-    response.forEach(item => {
-      let isInclude = false; //标识是否checkedItems中包含指定的item
-      if(this.flag){
-        this.checkedItems.forEach(ele => {
-          if(item[this.idField] == ele[this.idField]){
-            isInclude = true;
-          }
-        });
-      }else{
-        isInclude = this.checkedItems.includes(item[this.idField])
-      }
-      if (isInclude) {
-        count++;
-        item.checked = true;
-      } else {
-        item.checked = false;
-      }
-    });
+    if(!response){
+      response = [];
+    }
+    if(response.length && angular.isFunction(response.forEach)){
+      response.forEach(item => {
+        let isInclude = false; //标识是否checkedItems中包含指定的item
+        if(this.flag){
+          this.checkedItems.forEach(ele => {
+            if(item[this.idField] == ele[this.idField]){
+              isInclude = true;
+            }
+          });
+        }else{
+          isInclude = this.checkedItems.includes(item[this.idField])
+        }
+        if (isInclude) {
+          count++;
+          item.checked = true;
+        } else {
+          item.checked = false;
+        }
+      });
+    }
     count == response.length ? this.isAllChecked = true : this.isAllChecked = false;
 
   }

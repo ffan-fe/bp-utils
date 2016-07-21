@@ -5,7 +5,7 @@ import './checkboxtree.less';
 let checkboxtreeComponent = {
   restrict: 'E',
   bindings: {
-    list: '=',
+    listPromise: '=',
     ngDisabled: '=',
     ngModel: '=',
     config: '<'
