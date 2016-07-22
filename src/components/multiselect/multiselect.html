@@ -14,6 +14,7 @@
       <div class="col-sm-8">
         <select class="form-control"
                 ng-model="vm.form[field.name]"
+                ng-init="vm.form[field.name] = ''"
                 ng-options="option.value as option.text for option in field.options"></select>
       </div>
     </div>
@@ -23,7 +24,7 @@
             class="btn bp-btn-primary"
             ng-disabled="vm.submitting"
             ng-click="vm.search()">查询</button>
-    <button type="reset" class="btn bp-btn-default" ng-click="vm.form={}">重置</button>
+    <button type="reset" class="btn bp-btn-default" ng-click="vm.resetForm()">重置</button>
   </div>
 </form>
 <table class="multiselect-table table table-condensed table-bordered table-striped table-hover" ng-table="vm.tableParams">
@@ -62,7 +63,7 @@
             <a
               ng-if="btn.href"
               class="btn btn-xs bp-btn-primary"
-              href="{{btn.href}}{{row.id}}"
+              href="{{btn.href}}{{row[btn.itemId]}}"
               target="_self"
               title="{{btn.displayName}}">
               {{btn.displayName}}

@@ -46,6 +46,19 @@ class MultiselectController {
   }
 
   /**
+   * 重置查询表单
+   * 注意：select的model要重置为"";
+   */
+  resetForm() {
+    this.form = {};
+    if (this.config.queryFields.length) {
+      this.config.queryFields.forEach(item => {
+        item.type === 'select' ? this.form[item.name] = '' : '';
+      });
+    }
+  }
+
+  /**
    * 单条数据checked字段改变处理函数：
    * 更新保存选中条目的数组
    * @param row
