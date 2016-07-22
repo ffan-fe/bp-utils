@@ -26,7 +26,6 @@ class ListController {
           method: "GET",
           params: paramData
         }).then(response => {
-          console.log('response', response);
           params.total(response.data.data.totalCount); //帮你分几页
           this.loading = false;
           return response.data && response.data.data.list;
@@ -49,7 +48,6 @@ class ListController {
       method: "GET",
       params: param
     }).then(data => {
-      console.log('refreshOptions data', data);
       this[name + 'List'] = data && data.data && data.data.data;
       return data && data.data && data.data.data;
     });

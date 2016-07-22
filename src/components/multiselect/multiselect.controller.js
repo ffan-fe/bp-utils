@@ -28,7 +28,6 @@ class MultiselectController {
           method: "GET",
           params: paramData
         }).then(response => {
-          console.log('response', response);
           params.total(response.data.totalCount); //帮你分几页
           this.loading = false;
           this.responseFormat(response.data.items);

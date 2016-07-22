@@ -4,7 +4,6 @@ class CheckboxtreeController {
     this.name = 'checkboxtree';
     this.config = Object.assign({}, config, this.config);
     this.listPromise.then(responce => {
-      console.log('responce list', responce);
       this.list = responce;
       this.formatList(this.list, this.ngModel);
     });
@@ -51,8 +50,6 @@ class CheckboxtreeController {
     }
     if (flag && node.parent) { //只有此情况下父节点的check状态才和当前节点有关，且和当前节点的checked状态一致
       let parent = this.getNode(node.parent, this.list);
-      console.log('parent', parent);
-      console.log('node.checked', node.checked);
       parent.checked = node.checked;
       this.updateModel(parent);
       this.toggleUpNode(parent);
@@ -99,8 +96,6 @@ class CheckboxtreeController {
    * @param checkedItems
    */
   formatList(list, checkedItems){
-    console.log('checkedItems', checkedItems);
-
     checkedItems.forEach(item => {
       let targetNode = this.getNode(item[this.config.fieldOfId], list);
       console.log('targetNode in formatList', targetNode);
@@ -149,7 +144,6 @@ class CheckboxtreeController {
       });
     };
     walkList(id, list);
-    console.log('targetNode', targetNode);
     return targetNode;
   }
 
