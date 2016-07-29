@@ -1,4 +1,4 @@
-import formComponent from './form.component';
+import formComponent from './component.js';
 
 let formModule = angular.module('formTpl', [
 ])

@@ -1,7 +1,7 @@
-import datepicker from './datepicker/main.js'
-import rangepicker from './rangepicker/main.js'
-import checkboxtree from './checkboxtree/checkboxtree.js'
-import multiselect from './multiselect/multiselect.js'
+import datepicker from './datepicker/index.js'
+import rangepicker from './rangepicker/index.js'
+import checkboxtree from './checkboxtree/index.js'
+import multiselect from './multiselect/index.js'
 
 
 let componentModule = angular.module('bp.components', [

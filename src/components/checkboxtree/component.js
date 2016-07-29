@@ -1,6 +1,6 @@
-import template from './checkboxtree.html';
-import controller from './checkboxtree.controller';
-import './checkboxtree.less';
+import template from './template.html';
+import controller from './controller.js';
+import './style.less';
 
 let checkboxtreeComponent = {
   restrict: 'E',

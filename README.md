@@ -1,3 +1,14 @@
+#### 开发：
+clone下来后：
+npm install
+启动server执行gulp
+
+生成示例页面：
+1.切到gh-pages分支
+2.git merge master
+3.npm run build:examples
+注意：不要在gh-pages做代码修改，这里只用于合进最新代码并生成示例页面
+
 #### requirements
 angular
 

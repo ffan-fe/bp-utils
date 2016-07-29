@@ -1,16 +1,16 @@
-import ListModule from './list'
-import ListController from './list.controller';
-import ListComponent from './list.component';
-import ListTemplate from './list.html';
+import CheckboxtreeModule from './index'
+import CheckboxtreeController from './controller.js';
+import CheckboxtreeComponent from './component.js';
+import CheckboxtreeTemplate from './template.html';
 
-describe('List', () => {
+describe('Checkboxtree', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(ListModule.name));
+  beforeEach(window.module(CheckboxtreeModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new ListController();
+      return new CheckboxtreeController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('List', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(ListTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(CheckboxtreeTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = ListComponent;
+      let component = CheckboxtreeComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(ListTemplate);
+        expect(component.template).to.equal(CheckboxtreeTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('List', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(ListController);
+        expect(component.controller).to.equal(CheckboxtreeController);
       });
   });
 });
