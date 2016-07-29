@@ -3,7 +3,7 @@
  */
 
 let Config = {
-  title: '摇一摇活动列表', //页面标题
+  title: '活动列表', //页面标题
 
   //拉取数据的url
   url: '/marketcms/shakeCityActivity/getActivityList',

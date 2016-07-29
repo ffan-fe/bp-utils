@@ -1,2 +1,4 @@
-<bp-checkboxtree list-promise="vm.listPromise" ng-model="vm.form.catagory"></bp-checkboxtree>
-model数据：{{vm.form.catagory}}
+<section style="margin-top: 30px">
+  <bp-checkboxtree list-promise="vm.listPromise" ng-model="vm.form.catagory"></bp-checkboxtree>
+  model数据：<pre>{{vm.form.catagory | json}}</pre>
+</section>
