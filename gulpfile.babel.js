@@ -37,50 +37,16 @@ let paths = {
     path.join(root, 'index.html')
   ],
   entry: path.join(__dirname, root, 'app.js'),
-  output: root,
-  blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**')
+  output: root
 };
 
-// use webpack.config.js to build modules
-gulp.task('webpack', (cb) => {
-
-  var options = minimist(
-    process.argv.slice(2),
-    {
-        string : ['app'],
-        default: {
-            app:path.resolve(__dirname, 'dist')
-          }
-    }
-  );
-  process.env.APP = options.app ;
-  let config = require('./webpack.dist.config');
-
-  config.entry.app = paths.entry;
-
-  webpack(config, (err, stats) => {
-    if(err)  {
-      throw new gutil.PluginError("webpack", err);
-    }
-
-    gutil.log("[webpack]", stats.toString({
-      colors: colorsSupported,
-      chunks: false,
-      errorDetails: true
-    }));
-
-    cb();
-  });
-});
 
 let chuckNorrisApiProxy = proxy(['/marketcms', '/Public', '/goods', '/Database'], {
   target: 'http://admin.sit.ffan.com/',
-  // target: 'http://shake2.sit.ffan.com/',
   changeOrigin: true,
   logLevel: 'debug',
   headers:{
-    Cookie:"PHPSESSID=4i2d3ve59ligktdcame5ra5vo5"
-    // Cookie:"PHPSESSID=akhj759371pvcnpfsf0ihjomb7"
+    Cookie:"PHPSESSID=5q0pj6ru9rkj8v2dq4l7m17r60"
   }
 });
 
@@ -93,6 +59,15 @@ gulp.task('serve', () => {
     // application entry point
     paths.entry
   ];
+
+  config.plugins = config.plugins.concat([
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'DEBUG': true
+      }
+    })
+  ]);
 
   var compiler = webpack(config);
 
@@ -113,27 +88,6 @@ gulp.task('serve', () => {
       chuckNorrisApiProxy
     ]
   });
-});
-
-gulp.task('watch', ['serve']);
-
-gulp.task('component', () => {
-  const cap = (val) => {
-    return val.charAt(0).toUpperCase() + val.slice(1);
-  };
-  const name = yargs.argv.name;
-  const parentPath = yargs.argv.parent || '';
-  const destPath = path.join(resolveToComponents(), parentPath, name);
-
-  return gulp.src(paths.blankTemplates)
-    .pipe(template({
-      name: name,
-      upCaseName: cap(name)
-    }))
-    .pipe(rename((path) => {
-      path.basename = path.basename.replace('temp', name);
-    }))
-    .pipe(gulp.dest(destPath));
 });
 
 gulp.task('default', ['serve']);

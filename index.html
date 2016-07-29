@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>示例</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="description" content="">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <base href="">
+</head>
+<body ng-app="app" ng-strict-di ng-cloak>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-2">
+      <ul class="nav nav-pills nav-stacked">
+        <li><a ui-sref-active="active"  ui-sref="datepicker">datepicker和rangepicker</a></li>
+        <li><a ui-sref-active="active"  ui-sref="checkboxtree">checkboxtree</a></li>
+        <li><a ui-sref-active="active"  ui-sref="multiselect">multiselect</a></li>
+        <li><a ui-sref-active="active"  ui-sref="form">form tpl</a></li>
+        <li><a ui-sref-active="active"  ui-sref="list">list tpl</a></li>
+        <li><a ui-sref-active="active"  ui-sref="alert">alert</a></li>
+        <li><a ui-sref-active="active"  ui-sref="hint">hint</a></li>
+      </ul>
+    </div>
+    <div class="col-xs-10">
+      <ui-view></ui-view>
+    </div>
+  </div>
+</div>
+<script src="main.bundle.js"></script>
+</body>
+</html>

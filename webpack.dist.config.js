@@ -21,5 +21,16 @@ module.exports = {
       }
     ]
   },
-  plugins: []
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: {
+        except: ['$super', '$', 'exports', 'require', 'angular']
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'DEBUG': false
+      }
+    })
+  ]
 };
