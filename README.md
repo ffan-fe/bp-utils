@@ -586,7 +586,7 @@ AlertService
       });
 
 ```
-- AlertService
+- HintService
 
 ```
 消息通知类的alert可以用这个
