@@ -2,7 +2,7 @@
  * Datepicker
  */
 import $ from 'jquery'
-
+import { UIHelper } from '../../tool/uihelper.js'
 'use strict';
 
 /**
@@ -12,7 +12,7 @@ import $ from 'jquery'
  * @class Datepicker
  * @extends {Component}
  */
-export default class Datepicker{
+export default class Datepicker {
   constructor($element, $scope) {
     'ngInject'
     let ID = function () {
@@ -43,11 +43,18 @@ export default class Datepicker{
     this.dateOptions = dateOptions;
     this.timeOptions = timeOptions;
 
-    $('body').click(e => {
+    let closeEvent = UIHelper.listen(window, 'click', (e) => {
       if ($(e.target).has('.dropdown-toggle').length) {
         $(e.target).has($element).length ? (this.isOpen = false) : (this.isOpen = true);
         $scope.$digest();
       }
     });
+
+    $scope.$on('$destroy', () => closeEvent.remove());
+  }
+
+  showPop(e) {
+    this.isOpen = true;
+    e.stopPropagation();
   }
 }

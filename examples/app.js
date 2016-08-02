@@ -9,9 +9,9 @@ import 'ui-select/dist/select.css'
 import 'lodash'
 import 'restangular'
 import 'ffan-bp-menu'
+import 'bp-admin-skin'
 
 import  bpUtils from '../src/index.js';
-
 
 import form from './template/form/index.js'
 import list from './template/list/index.js'

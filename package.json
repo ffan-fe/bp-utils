@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "angular-ui-router": "^1.0.0-alpha.5",
+    "bp-admin-skin": "^1.0.3",
     "ffan-bp-menu": "^1.0.3",
     "ffan-ng-table": "0.0.1",
     "http-proxy-middleware": "^0.16.0",
