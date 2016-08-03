@@ -262,7 +262,7 @@ vm.config =  {
              };
 
 
-支持对特定行disable状态的控制: 根据list中isDisable来判断
+支持对特定行disable状态的控制: 根据list中isDisable字段来判断
 
 注意:
 - 配置中拉取数据的url，在component内使用get请求拉去数据；

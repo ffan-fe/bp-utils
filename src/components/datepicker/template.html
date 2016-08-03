@@ -1,4 +1,4 @@
-<div class="dropdown" ng-class="{'open': vm.isOpen}" id="{{vm.id}}">
+<div class="dropdown" ng-class="{'open': vm.isOpen}">
   <div class="input-group">
     <input type="text"
            class="form-control"
@@ -6,7 +6,7 @@
            date-model-format="vm.modelFormat"
            readonly
            ng-model="vm.ngModel">
-                      <span class="input-group-addon" ng-click="vm.showPop(e)">
+                      <span class="input-group-addon" ng-click="vm.showPop();$event.stopPropagation()">
                         <i class="glyphicon glyphicon-calendar"></i>
                       </span>
   </div>
