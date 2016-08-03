@@ -1,4 +1,4 @@
-import listComponent from './list.component';
+import listComponent from './component.js';
 
 let listModule = angular.module('listTpl', [
 ])

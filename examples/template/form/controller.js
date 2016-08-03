@@ -1,6 +1,9 @@
+import Prism from 'prismjs';
+
 import DefaultConfig from './config.js'
+
 class AddController {
-  constructor($scope, $state, NgTableParams, Restangular, bpApi) {
+  constructor($scope, $state, NgTableParams, Restangular, bpApi, $sce) {
     'ngInject'
     this.datepickerOption = {
       //minDate: new Date(),
@@ -51,6 +54,110 @@ class AddController {
         })
       }
     };
+
+    const exampleCode = `
+  <form-tpl form-config="vm.formConfig"></form-tpl>
+
+   vm.formConfig = {
+
+     //生成表单的信息，包含验证及对应错误提示的设置
+     fields: [
+       {
+         type: 'text',
+         displayName: '活动名称',
+         name: 'testText',
+         validateRules: {
+           required: true,
+           minlength: 0,
+           maxlength: 50
+         }
+       },
+       {
+         type: 'text',
+         displayName: '活动标签',
+         name: 'tag',
+         validateRules: {
+           required: false,
+           minlength: 0,
+           maxlength: 50
+         }
+       },
+       {
+         type: 'radio',
+         displayName: '营销工具',
+         name: 'testRadio',
+         validateRules: {
+           required: false
+         },
+         options: [
+           {
+             text: '闪购',
+             value: 'option1'
+           },
+           {
+             text: '领券',
+             value: 'option2'
+           }
+         ]
+       },
+       {
+         type: 'daterange',
+         displayName: '活动时间',
+         name: ['startTime, endTime'],
+         validateRules: {
+           required: true
+         }
+       },
+       {
+         type: 'richtext',
+         displayName: '活动说明',
+         name: 'testrichtext',
+         validateRules: {
+           required: true,
+           minlength: 1,
+           maxlenght: 1000
+         }
+       },
+       {
+         type: 'richtext',
+         displayName: '活动规则',
+         name: 'activityrule',
+         validateRules: {
+           required: true,
+           minlength: 1,
+           maxlenght: 1000
+         }
+       },
+       {
+         type: 'richtext',
+         displayName: '活动说明',
+         name: 'testrichtext',
+         validateRules: {
+           required: true,
+           minlength: 1,
+           maxlenght: 10
+         }
+       },
+       {
+         type: 'checkbox',
+         displayName: '是否公开招募',
+         name: 'testcheckbox',
+         validateRules: {
+           required: false
+         }
+       },
+       {
+         type: 'image',
+         displayName: '测试image',
+         name: 'image',
+         validateRules: {
+           required: false
+         }
+       }
+     ]
+   }
+    `;
+    this.exampleHtml = $sce.trustAsHtml(Prism.highlight(exampleCode, Prism.languages.html));
   }
 
   hasType(field) {

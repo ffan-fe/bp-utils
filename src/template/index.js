@@ -1,5 +1,5 @@
-import formTpl from './form/form.js';
-import listTpl from './list/list.js'
+import formTpl from './form/index.js';
+import listTpl from './list/index.js'
 
 let templateModule = angular.module('template', [
   formTpl.name,

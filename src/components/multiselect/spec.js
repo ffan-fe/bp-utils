@@ -1,16 +1,16 @@
-import CheckboxtreeModule from './checkboxtree'
-import CheckboxtreeController from './checkboxtree.controller';
-import CheckboxtreeComponent from './checkboxtree.component';
-import CheckboxtreeTemplate from './checkboxtree.html';
+import MultiselectModule from './index'
+import MultiselectController from './controller.js';
+import MultiselectComponent from './component.js';
+import MultiselectTemplate from './template.html';
 
-describe('Checkboxtree', () => {
+describe('Multiselect', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(CheckboxtreeModule.name));
+  beforeEach(window.module(MultiselectModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new CheckboxtreeController();
+      return new MultiselectController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('Checkboxtree', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(CheckboxtreeTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(MultiselectTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = CheckboxtreeComponent;
+      let component = MultiselectComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(CheckboxtreeTemplate);
+        expect(component.template).to.equal(MultiselectTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('Checkboxtree', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(CheckboxtreeController);
+        expect(component.controller).to.equal(MultiselectController);
       });
   });
 });

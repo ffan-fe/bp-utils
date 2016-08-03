@@ -1,6 +1,6 @@
-import template from './form.html';
-import controller from './form.controller';
-import './form.less';
+import template from './template.html';
+import controller from './controller.js';
+import './style.less';
 
 let formComponent = {
   restrict: 'E',

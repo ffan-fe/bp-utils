@@ -2,7 +2,7 @@
  * Datepicker
  */
 import $ from 'jquery'
-
+import { UIHelper } from '../../tool/uihelper.js'
 'use strict';
 
 /**
@@ -12,7 +12,7 @@ import $ from 'jquery'
  * @class Datepicker
  * @extends {Component}
  */
-export default class Datepicker{
+export default class Datepicker {
   constructor($element, $scope) {
     'ngInject'
     let ID = function () {
@@ -43,11 +43,30 @@ export default class Datepicker{
     this.dateOptions = dateOptions;
     this.timeOptions = timeOptions;
 
-    $('body').click(e => {
-      if ($(e.target).has('.dropdown-toggle').length) {
-        $(e.target).has($element).length ? (this.isOpen = false) : (this.isOpen = true);
-        $scope.$digest();
+    let closeEvent = UIHelper.listen(window, 'click', (e) => {
+      console.info("$($element).has(e.target).length", $($element).has(e.target).length);
+      console.info("$(e.target).parents('.dropdown').length", !$(e.target).parents('.dropdown').length);
+
+      /**
+       * 点击的元素父元素找不到$element，说明在$element之外，则应关闭dropdown
+       * 当一个页面有多个dropdown时：
+       * 决定打开状态时要借助$element来决定是否为当前的那个dropdown
+       */
+      if ($(e.target).has('.dropdown').length) {
+        this.isOpen = false;
+
+        if ($($element).has(e.target).length) {
+          this.isOpen = true
+        }
       }
+      $scope.$digest();
+
     });
+
+    $scope.$on('$destroy', () => closeEvent.remove());
+  }
+
+  showPop(e) {
+    this.isOpen = true;
   }
 }

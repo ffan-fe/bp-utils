@@ -6,12 +6,17 @@ import './angular-locale_zh-cn.js';
 import 'ffan-ng-table';
 import 'ui-select';
 import 'ui-select/dist/select.css'
+import 'prismjs/themes/prism.css';
 import 'lodash'
 import 'restangular'
 import 'ffan-bp-menu'
+import 'bp-admin-skin'
+import 'angular-touch'
+
+import './app.less'
+import './ui.less'
 
 import  bpUtils from '../src/index.js';
-
 
 import form from './template/form/index.js'
 import list from './template/list/index.js'
@@ -20,6 +25,8 @@ import checkboxtree from './components/checkboxtree/index.js'
 import multiselect from './components/multiselect/index.js'
 import alert from './service/alert/index.js'
 import hint from './service/hint/index.js'
+
+import nav from './nav/index.js'
 
 import requestHandleFunc from './request.js'
 import responseHandleFunc from './response.js'
@@ -31,13 +38,15 @@ angular.module('app', [
   'ui.select',
   'bp.menu',
   'restangular',
+  'ngTouch',
   form.name,
   list.name,
   datepicker.name,
   checkboxtree.name,
   multiselect.name,
   alert.name,
-  hint.name
+  hint.name,
+  nav.name
 ])
   .config(function (RestangularProvider) {
     'ngInject'

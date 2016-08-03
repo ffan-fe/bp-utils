@@ -1,16 +1,16 @@
-import MultiselectModule from './multiselect'
-import MultiselectController from './multiselect.controller';
-import MultiselectComponent from './multiselect.component';
-import MultiselectTemplate from './multiselect.html';
+import FormModule from './index'
+import FormController from './controller.js';
+import FormComponent from './component.js';
+import FormTemplate from './template.html';
 
-describe('Multiselect', () => {
+describe('Form', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(MultiselectModule.name));
+  beforeEach(window.module(FormModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new MultiselectController();
+      return new FormController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('Multiselect', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(MultiselectTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(FormTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = MultiselectComponent;
+      let component = FormComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(MultiselectTemplate);
+        expect(component.template).to.equal(FormTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('Multiselect', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(MultiselectController);
+        expect(component.controller).to.equal(FormController);
       });
   });
 });

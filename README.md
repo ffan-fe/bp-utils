@@ -1,3 +1,16 @@
+#### 开发：
+```
+clone下来后：
+npm install
+启动server执行gulp
+
+生成示例页面：
+1.切到gh-pages分支
+2.git merge master
+3.npm run build:examples
+注意：不要在gh-pages做代码修改，这里只用于合进最新代码并生成示例页面
+```
+
 #### requirements
 angular
 
@@ -249,7 +262,7 @@ vm.config =  {
              };
 
 
-支持对特定行disable状态的控制: 根据list中isDisable来判断
+支持对特定行disable状态的控制: 根据list中isDisable字段来判断
 
 注意:
 - 配置中拉取数据的url，在component内使用get请求拉去数据；

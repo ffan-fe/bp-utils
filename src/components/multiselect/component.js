@@ -1,6 +1,6 @@
-import template from './multiselect.html';
-import controller from './multiselect.controller';
-import './multiselect.less';
+import template from './template.html';
+import controller from './controller.js';
+import './style.less';
 
 let multiselectComponent = {
   restrict: 'E',
