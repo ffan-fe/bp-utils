@@ -31,6 +31,104 @@ require: ng-model
 日期的保存格式 eg: 'x'
 
 ```
+
+- bpFieldError
+
+(form-tpl 内使用)
+
+```
+require: ng-model
+
+在表单dirty且invalid在当前表单下或指定容器内展示错误信息
+
+使用示例：
+  <textarea class="form-control"
+     ng-model="vm.form[field.name]"
+     ng-required="field.validateRules.required"
+     maxlength="{{field.validateRules.maxlength}}"
+     minlength="{{field.validateRules.minlength}}"
+     bp-field-error="{{field.errorMsgs}}">
+  </textarea>
+
+bp-field-error 对常见错误类型的默认展示信息如下：
+{
+    email: '不是有效格式的邮件地址',
+    url: '不是有效格式的url',
+    required: '此项不能为空',
+    same: '此项必须与密码相同',
+    max: '超过上限',
+    min: '低于下限',
+    number: '必须为数字',
+    parse: '根据验证规则，已重置无效值'
+}
+
+使用指令时允许传入自定义错误信息的对象来复写扩展上面默认的eg:
+{
+    min: '最小值不能低于1',
+    max: '最大值不能超过10',
+    large: 'number2要大于number1'
+}
+来自定义错误信息
+
+指定展示错误信息的容器
+bp-field-error-selector="{{field.selector}}"
+eg:
+ <input
+    class="form-control"
+    type="number"
+    name="{{field.name}}"
+    ng-required="field.validateRules.required"
+    bp-field-error="{{field.errorMsgs}}"
+    bp-field-error-selector="{{field.selector}}"
+    bp-large-than="field.validateRules.largeThan"
+    bp-large-than-form="vm.form"
+    max="{{field.validateRules.max}}"
+    min="{{field.validateRules.min}}"
+    ng-model="vm.form[field.name]">
+
+注意：
+bp-field-error和bp-field-error-selector都只接受字符串，而不是表达式
+```
+##### 关联验证相关指令
+
+- bpLargeThan
+
+(form-tpl 内使用)
+
+```
+require: ng-model
+
+当前表单内一个字段值要求比另一字段大才和合法时使用；
+eg：
+ <input
+    class="form-control"
+    type="number"
+    name="{{field.name}}"
+    ng-required="field.validateRules.required"
+    bp-field-error="{{field.errorMsgs}}"
+    bp-field-error-selector="{{field.selector}}"
+    bp-large-than="field.validateRules.largeThan"
+    bp-large-than-form="vm.form"
+    max="{{field.validateRules.max}}"
+    min="{{field.validateRules.min}}"
+    ng-model="vm.form[field.name]">
+
+bp-large-than和
+bp-large-than-form
+要配合使用，
+bp-large-than传入这样的配置对象：
+{
+    type: 'date', //'number'或'date',决定比较前是否要进行转换
+    which: 'testDate1' //和哪个字段比较
+}
+
+bp-large-than-form传入字段所在form的引用，这样才能找到要比较字段的值
+
+注意：传入的是表达式，指令内部eval
+
+```
+
+
 #### components
 
 - bp-datepicker
