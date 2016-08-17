@@ -29,12 +29,32 @@ class Api {
     return deferred.promise;
   }
 
-  post(url, params, isAlert) {
+  post(url, params) {
     let deferred = this.$q.defer();
     this.$http({
       url: this.base + url,
       data: $.param(params),
       method: "post",
+      headers: {"Content-Type": "application/x-www-form-urlencoded"}
+    }).then(function (raw) {
+      let result = raw.data;
+      if (result.status == 200) {
+        deferred.resolve(result.data);
+      } else {
+        deferred.reject(result);
+      }
+    }, function (raw) {
+      deferred.reject(raw);
+    });
+    return deferred.promise;
+  }
+
+  put(url, params) {
+    let deferred = this.$q.defer();
+    this.$http({
+      url: this.base + url,
+      data: $.param(params),
+      method: "put",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
     }).then(function (raw) {
       let result = raw.data;
