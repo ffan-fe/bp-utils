@@ -51,7 +51,7 @@ let chuckNorrisApiProxy = proxy(['/marketcms', '/Public', '/goods', '/Database']
 });
 
 gulp.task('serve', () => {
-  const config = require('./webpack.dev.config');
+  const config = require('./webpack.dev');
   config.entry.app = [
     // this modules required to make HRM working
     // it responsible for all this webpack magic

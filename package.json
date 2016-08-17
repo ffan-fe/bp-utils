@@ -2,13 +2,13 @@
   "name": "bp-utils",
   "version": "0.0.38",
   "description": "bp directives and services collection",
-  "main": "dist/main.bundle.js",
+  "main": "dist/main.js",
   "scripts": {
     "compile": "npm run build",
     "prepublish": "npm run compile",
-    "build:webpack": "NODE_ENV=production webpack --config webpack.dist.config.js",
-    "build:examples": "NODE_ENV=production webpack --config webpack.examples.config.js",
-    "build": "npm run clean && npm run build:webpack",
+    "build:dist": "NODE_ENV=production webpack --config webpack.dist.js",
+    "build:examples": "NODE_ENV=production webpack --config webpack.examples.js",
+    "build": "npm run clean && npm run build:dist",
     "clean": "rimraf dist"
   },
   "keywords": [
