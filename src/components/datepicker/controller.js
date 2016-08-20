@@ -12,9 +12,11 @@ import $ from 'jquery'
  * @class Datepicker
  * @extends {Component}
  */
-export default class Datepicker{
-  constructor($element, $scope) {
+export default class Datepicker {
+  constructor($element, $scope, $rootScope) {
     'ngInject'
+    this.$rootScope = $rootScope;
+
     let ID = function () {
       // Math.random should be unique because of its seeding algorithm.
       // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -22,6 +24,16 @@ export default class Datepicker{
       return '_' + Math.random().toString(36).substr(2, 9);
     };
     this.id = ID();
+
+    if (!$rootScope.calendars || !angular.isArray($rootScope.calendars)) {
+      $rootScope.calendars = [];
+
+    }
+    $rootScope.calendars.push({
+      scope: $scope,
+      id: this.id
+    });
+
     const DEFAULTS = {
       showWeeks: false,
       formatDayTitle: 'yyyy MMMM',
@@ -49,5 +61,14 @@ export default class Datepicker{
         $scope.$digest();
       }
     });
+  }
+
+  togglePop() {
+    if (!this.pop) {
+      this.$rootScope.calendars.forEach(v => {
+        v.scope.vm.pop = false
+      });
+    }
+    this.pop = !this.pop;
   }
 }

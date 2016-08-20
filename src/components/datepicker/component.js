@@ -6,15 +6,31 @@ import template from './template.html';
 import controller from './controller.js';
 import './style.less';
 
-let datepickerComponent = {
-  restrict: 'E',
-  bindings: {
-    ngModel: '=',
-    datepickerOptions: '='
-  },
-  template,
-  controller,
-  controllerAs: 'vm'
-};
+import { UIHelper } from "../../tool/uihelper.js";
 
-export default datepickerComponent;
+export default class datepickerDirective {
+  constructor($rootScope) {
+    this.template = template;
+    this.restrict = "E";
+
+    this.controller = controller;
+    this.controllerAs = "vm";
+    this.bindToController = true;
+
+    this.scope = {
+      ngModel: '=',
+      datepickerOptions: '='
+    };
+
+    this.link = (scope, element, attrs) => {
+
+      /*let closeEvent = UIHelper.listen(window, 'click', (e) => {
+        if (!element[0].contains(e.target) && scope.vm.pop) {
+          scope.vm.pop = false;
+        }
+      });
+
+      scope.$on('$destroy', () => closeEvent.remove());*/
+    }
+  }
+}
