@@ -2,7 +2,7 @@ import angular from 'angular';
 import 'angular-component';
 import 'bp-admin-skin';
 import 'angular-ui-bootstrap';
-import './angular-locale_zh-cn.js';
+import './lib/angular-locale_zh-cn.js';
 import 'ffan-ng-table';
 import 'ui-select';
 import 'ui-select/dist/select.css'
@@ -12,6 +12,13 @@ import 'restangular'
 import 'ffan-bp-menu'
 import 'bp-admin-skin'
 import 'angular-touch'
+import 'textangular'
+import 'textAngular/dist/textAngular-sanitize'
+import 'textAngular/dist/textAngular.css'
+import './lib/css/font-awesome.css'
+
+import 'angular-loading-bar'
+import './lib/loading-bar.min.css'
 
 import './app.less'
 import './ui.less'
@@ -39,6 +46,8 @@ angular.module('app', [
   'bp.menu',
   'restangular',
   'ngTouch',
+  'angular-loading-bar',
+  'textAngular',
   form.name,
   list.name,
   datepicker.name,
