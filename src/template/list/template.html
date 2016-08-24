@@ -95,6 +95,7 @@
             <div>
               <select class="form-control" ng-model="vm.form[field.name]"
                       ng-required="field.validateRules.required"
+                      ng-init="vm.form[field.name] = ''"
                       bp-field-error
                       ng-options="option.value as option.text for option in field.options"></select>
             </div>
