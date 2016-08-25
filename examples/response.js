@@ -4,7 +4,6 @@
 import moment from 'moment';
 
 let responseHandleFunc = function (response) {
-  console.log(response);
   // do something on success
   if (/\/activity\/rule/.test(response.config.url)) {
 

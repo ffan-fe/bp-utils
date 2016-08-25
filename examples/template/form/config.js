@@ -74,14 +74,6 @@ let config = {
         ]
       },
       {
-        type: 'daterange',
-        displayName: '活动时间',
-        name: ['startTime, endTime'],
-        validateRules: {
-          required: true
-        }
-      },
-      {
         type: 'richtext',
         displayName: '活动说明',
         name: 'testrichtext',
@@ -126,6 +118,110 @@ let config = {
         validateRules: {
           required: false
         }
+      },
+      {
+        type: 'text',
+        displayName: '自定义text',
+        name: 'testText',
+        isAsFilter: true,
+        isInTable: true,
+        validateRules: {
+          required: true,
+          minlength: 2,
+          maxlength: 10
+        }
+      },
+      {
+        type: 'radio',
+        displayName: '自定义checkbox',
+        name: 'checkbox',
+        validateRules: {
+
+        }
+      },
+      {
+        type: 'textarea',
+        displayName: '测试textarea',
+        name: 'testTextArea',
+        validateRules: {
+          required: true,
+          minlength: 2,
+          maxlength: 10
+        },
+        errorMsgs: {
+          minlength: '最小长度为2',
+          maxlength: '最大长度为10'
+        }
+      },
+      {
+        type: 'number',
+        displayName: '测试number1',
+        name: 'testNumber1',
+        isAsFilter: true,
+        isInTable: true,
+        validateRules: {
+          required: true,
+          min: 1,
+          max: 10
+        },
+        errorMsgs: {
+          min: '最小值不能低于1',
+          max: '最大值不能超过10'
+        }
+      },
+      {
+        type: 'number',
+        displayName: '测试number2',
+        name: 'testNumber2',
+        isAsFilter: true,
+        isInTable: true,
+        validateRules: {
+          required: true,
+          min: 1,
+          max: 10,
+          largeThan: {
+            type: 'number',
+            which: 'testNumber1',
+          }
+        },
+        errorMsgs: {
+          min: '最小值不能低于1',
+          max: '最大值不能超过10',
+          large: 'number2要大于number1'
+        },
+        selector: '#error'
+      },
+      {
+        type: 'select',
+        displayName: '测试select',
+        name: 'testSelect',
+        validateRules: {
+          required: true
+        },
+        options: [
+          {
+            text: '测试select option',
+            value: 'option'
+          }
+        ]
+      },
+      {
+        type: 'uiselect',
+        displayName: '测试uiselect',
+        name: 'testUiSelect',
+        validateRules: {
+          //required: true
+        },
+        url: 'get/uiselect'
+      },
+      {
+        type: 'Typeahead',
+        displayName: '测试Typeahead',
+        name: 'testTypeahead',
+        validateRules: {
+          required: true
+        },
+        url: 'get/Typeahead/'
       }
     ]
   },

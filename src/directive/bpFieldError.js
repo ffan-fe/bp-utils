@@ -1,6 +1,7 @@
 /**
  * Created by fjywan on 16/8/11.
  */
+import $ from 'jquery'
 
 export default class BpFieldError {
   constructor($compile) {

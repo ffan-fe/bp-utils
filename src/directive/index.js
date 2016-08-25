@@ -8,9 +8,9 @@ let bpDirectives = angular.module('bp.directives', [])
   .directive('dateViewFormat', ()=>dateViewFormat)
   .directive('bpFieldError', ($compile) => {
     'ngInject'
-    new BpFieldError($compile);
+    return new BpFieldError($compile);
   })
-  .directive('bpLargeThan', () => new BpFieldError())
+  .directive('bpLargeThan', () => new BpLargeThan())
   .filter('error', function (Errors) {
     return function (name, customMessages) {
       if (customMessages) {
