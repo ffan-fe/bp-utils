@@ -14,7 +14,7 @@ let config = require('./webpack.make')({
 config.entry = './examples/app.js';
 config.plugins.push(new webpack.DefinePlugin({
   'process.env': {
-    'DEBUG': false
+    'DEBUG': true
   }
 }));
 
