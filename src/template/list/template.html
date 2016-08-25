@@ -304,10 +304,11 @@
         <tbody>
         <tr ng-repeat="row in $data">
           <td ng-repeat="field in vm.config.tableFields"> {{row[field.name]}}</td>
-          <td>
+          <td ng-if="vm.config.operations.length">
           <span ng-repeat="btn in vm.config.operations">
             <a
               ng-if="btn.state"
+              class="btn btn-xs bp-btn-primary"
               ui-sref="{{btn.state}}"
               target="_self"
               title="{{btn.displayName}}">
@@ -315,13 +316,15 @@
             </a>
             <a
               ng-if="btn.href"
-              href="{{btn.href}}{{row.id}}"
+              class="btn btn-xs bp-btn-primary"
+              href="{{btn.href}}{{row[btn.itemId]}}"
               target="_self"
               title="{{btn.displayName}}">
               {{btn.displayName}}
             </a>
             <button ng-if="btn.action"
-                    ng-click="btn.action(row.id)">
+                    class="btn btn-xs bp-btn-default"
+                    ng-click="btn.action(row[btn.itemId], vm.tableParams)">
               {{btn.displayName}}
             </button>
           </span>

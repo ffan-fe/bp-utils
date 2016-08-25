@@ -118,6 +118,7 @@ let Config = {
   operations: [
     {
       displayName: '查看',
+      itemId: 'id', //贫道链接后面的字段
       href: '#/city/detail/' //接受三种字段：state, href, action. action函数，接收当前条目id
     }
   ]
