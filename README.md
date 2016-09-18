@@ -10,7 +10,16 @@ npm install
 3.npm run build:examples
 注意：不要在gh-pages做代码修改，这里只用于合进最新代码并生成示例页面
 ```
-
+#### 使用：
+```
+执行npm install bp-utils --save
+在入口文件中添加：
+import 'bp-utils'
+angular.module('yourapp', [
+  'bp.utils'
+])
+即可使用以下所有指令和服务
+```
 #### requirements
 angular
 
