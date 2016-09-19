@@ -22,12 +22,13 @@ class Controller {
     };
 
     const exampleCode = `
-      <bp-datepicker ng-model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
+      <bp-datepicker model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
 
       this.datepickerOption = {
             minDate: new Date(),
             viewFormat: 'YYYY-MM-DD HH:mm:ss',
-            modelFormat: 'x'
+            modelFormat: 'x',
+            placeholder: '测试'
           };
       <bp-rangepicker ng-start-model="vm.startTime"
                 ng-end-model="vm.endTime"
@@ -36,7 +37,8 @@ class Controller {
 
       this.rangepickerOption = {
             viewFormat: 'YYYY-MM-DD HH:mm:ss',
-            modelFormat: 'x'
+            modelFormat: 'x',
+            placeholder: ['测试1', '测试2']
           };
     `;
     this.exampleHtml = $sce.trustAsHtml(Prism.highlight(exampleCode, Prism.languages.html));
