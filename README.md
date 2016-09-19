@@ -10,9 +10,19 @@ npm install
 3.npm run build:examples
 注意：不要在gh-pages做代码修改，这里只用于合进最新代码并生成示例页面
 ```
-
+#### 使用：
+```
+执行npm install bp-utils --save
+在入口文件中添加：
+import 'bp-utils'
+angular.module('yourapp', [
+  'bp.utils'
+])
+即可使用以下所有指令和服务
+```
 #### requirements
 angular
+angular-ui-tree
 
 #### directive
 
@@ -134,12 +144,13 @@ bp-large-than-form传入字段所在form的引用，这样才能找到要比较�
 - bp-datepicker
 ```
   示例：
-  <bp-datepicker ng-model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
+  <bp-datepicker model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
 
   this.datepickerOption = {
         minDate: new Date(),
         viewFormat: 'YYYY-MM-DD HH:mm:ss',
-        modelFormat: 'x'
+        modelFormat: 'x',
+        placeholder: '测试'
       };
 
 ```
@@ -242,7 +253,8 @@ bp-large-than-form传入字段所在form的引用，这样才能找到要比较�
 
 this.rangepickerOption = {
       viewFormat: 'YYYY-MM-DD HH:mm:ss',
-      modelFormat: 'x'
+      modelFormat: 'x',
+      placeholder: ['开始时间', '结束时间']
     };
 
 

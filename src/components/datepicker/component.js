@@ -18,7 +18,7 @@ export default class datepickerDirective {
     this.bindToController = true;
 
     this.scope = {
-      ngModel: '=',
+      model: '=',
       datepickerOptions: '='
     };
 
