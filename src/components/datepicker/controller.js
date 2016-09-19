@@ -47,10 +47,14 @@ export default class Datepicker {
     delete dateOptions.minuteStep;
     timeOptions.secondStep = dateOptions.secondStep ? dateOptions.secondStep : 1;
     timeOptions.showSeconds = dateOptions.hasOwnProperty('showSeconds') ? dateOptions.showSeconds : true;
+
     this.viewFormat = dateOptions.viewFormat;
     delete dateOptions.viewFormat;
     this.modelFormat = dateOptions.modelFormat;
     delete dateOptions.modelFormat;
+
+    this.placeholder = dateOptions.placeholder;
+    delete dateOptions.placeholder;
 
     this.dateOptions = dateOptions;
     this.timeOptions = timeOptions;
