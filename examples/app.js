@@ -32,6 +32,7 @@ import checkboxtree from './components/checkboxtree/index.js'
 import multiselect from './components/multiselect/index.js'
 import alert from './service/alert/index.js'
 import hint from './service/hint/index.js'
+import generateConfig from './generateconfig/index.js'
 
 import nav from './nav/index.js'
 
@@ -55,6 +56,7 @@ angular.module('app', [
   multiselect.name,
   alert.name,
   hint.name,
+  generateConfig.name,
   nav.name
 ])
   .config(function (RestangularProvider) {
