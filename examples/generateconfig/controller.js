@@ -63,10 +63,10 @@ class GeneratorController {
 
   getAvailableField() {
     if(!this.fieldSetAssociatedValidateTemp){
-      return false;
+      return [];
     }
 
-    let id = this.fieldSetAssociatedValidate.type +this.fields.length;
+    let id = this.fieldSetAssociatedValidate.type + this.fieldSetAssociatedValidate.index + this.fields.length;
 
     if(this.getAvailableField.__id
       && this.getAvailableField.__id == id
