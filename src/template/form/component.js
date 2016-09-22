@@ -5,7 +5,8 @@ import './style.less';
 let formComponent = {
   restrict: 'E',
   bindings: {
-    formConfig: '='
+    formConfig: '=',
+    model: '='
   },
   template,
   controller,
