@@ -56,7 +56,9 @@ class AddController {
     };
 
     const exampleCode = `
-  <form-tpl form-config="vm.formConfig"></form-tpl>
+  <form-tpl form-config="vm.formConfig" model="vm.form"></form-tpl>
+
+  form-config传入生成表单的配置，model指定表单的ng-model都绑到哪个键下
 
    vm.formConfig = {
 

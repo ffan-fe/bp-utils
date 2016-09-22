@@ -9,7 +9,7 @@
       <input class="form-control"
              type="text"
              name="text"
-             ng-model="vm.form[field.name]"
+             ng-model="vm.model[field.name]"
              ng-required="field.validateRules.required"
              maxlength="{{field.validateRules.maxlength}}"
              minlength="{{field.validateRules.minlength}}"
@@ -24,7 +24,7 @@
 
     <div class="col-sm-8">
                 <textarea class="form-control"
-                          ng-model="vm.form[field.name]"
+                          ng-model="vm.model[field.name]"
                           ng-required="field.validateRules.required"
                           maxlength="{{field.validateRules.maxlength}}"
                           minlength="{{field.validateRules.minlength}}"
@@ -38,8 +38,8 @@
     </label>
 
     <div class="col-sm-8">
-      <text-angular name="{{vm.form[field.name]}}"
-                    ng-model="vm.form[field.name]"
+      <text-angular name="{{vm.model[field.name]}}"
+                    ng-model="vm.model[field.name]"
                     ng-required="field.validateRules.required"
                     maxlength="{{field.validateRules.maxlength}}"
                     minlength="{{field.validateRules.minlength}}"
@@ -70,10 +70,10 @@
         bp-field-error="{{field.errorMsgs}}"
         bp-field-error-selector="{{field.selector}}"
         bp-large-than="field.validateRules.largeThan"
-        bp-large-than-form="vm.form"
+        bp-large-than-form="vm.model"
         max="{{field.validateRules.max}}"
         min="{{field.validateRules.min}}"
-        ng-model="vm.form[field.name]">
+        ng-model="vm.model[field.name]">
     </div>
   </div>
   <div class="form-group" ng-if="field.type === 'select'">
@@ -83,7 +83,7 @@
     </label>
 
     <div class="col-sm-8">
-      <select class="form-control" ng-model="vm.form[field.name]"
+      <select class="form-control" ng-model="vm.model[field.name]"
               ng-required="field.validateRules.required"
               bp-field-error
               ng-options="option.value as option.text for option in field.options"></select>
@@ -98,7 +98,7 @@
     <div class="col-sm-8">
       <ui-select
         bp-field-error
-        ng-model="vm.form[field.name]"
+        ng-model="vm.model[field.name]"
         ng-required="field.validateRules.required"
         theme="bootstrap">
         <ui-select-match>
@@ -122,7 +122,7 @@
       <input type="text"
              ng-required="field.validateRules.required"
              bp-field-error
-             ng-model="vm.form[field.name]"
+             ng-model="vm.model[field.name]"
              uib-typeahead="option.value as option.text for option in vm.refreshOptions(field.url, $viewValue) | filter:{text:$viewValue}"
              uib-typeahead-no-results="noResults"
              class="form-control">
@@ -145,7 +145,7 @@
           <div class="input-group">
             <input type="text"
                    class="form-control"
-                   data-ng-model="vm.form[field.name]">
+                   data-ng-model="vm.model[field.name]">
                       <span class="input-group-addon">
                         <i class="glyphicon glyphicon-calendar"></i>
                       </span>
@@ -155,12 +155,12 @@
             role="menu"
             aria-labelledby="dLabel">
           <datetimepicker
-            data-ng-model="vm.form[field.name]"
+            data-ng-model="vm.model[field.name]"
             name="{{field.name}}"
             ng-required="field.validateRules.required"
             bp-field-error="{{field.errorMsgs}}"
             bp-large-than="field.validateRules.largeThan"
-            bp-large-than-form="vm.form"
+            bp-large-than-form="vm.model"
             data-datetimepicker-config="{ dropdownSelector: '#_dropdown'+field.name ,modelType: 'YYYY-MM-DD HH:mm:ss'}"/>
         </ul>
       </div>
@@ -173,8 +173,8 @@
     </label>
 
     <div class="col-sm-8">
-      <bp-rangepicker ng-start-model="vm.form[field.name][0]"
-                      ng-end-model="vm.form[field.name][1]"
+      <bp-rangepicker ng-start-model="vm.model[field.name][0]"
+                      ng-end-model="vm.model[field.name][1]"
                       rangepicker-options="vm.datepickerOption"></bp-rangepicker>
     </div>
   </div>
@@ -187,8 +187,8 @@
     <div class="col-sm-8" style="padding-top: 7px">
       <label ng-repeat="option in field.options" style="margin-right: 15px">
         <input type="radio"
-               name="{{vm.form[field.name]}}"
-               ng-model="vm.form[field.name]"
+               name="{{vm.model[field.name]}}"
+               ng-model="vm.model[field.name]"
                value="{{option.value}}"/> {{option.text}}
       </label>
     </div>
@@ -201,8 +201,8 @@
 
     <div class="col-sm-8" style="padding-top: 7px">
       <input type="checkbox"
-             ng-model="vm.form[field.name]"
-             name="{{vm.form[field.name]}}"
+             ng-model="vm.model[field.name]"
+             name="{{vm.model[field.name]}}"
              ng-true-value="1"
              ng-false-value="0">
     </div>

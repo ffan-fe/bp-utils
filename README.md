@@ -432,9 +432,11 @@ vm.config =  {
 
 - form-tpl
 ```
-<form-tpl form-config="vm.formConfig"></form-tpl>
+<form-tpl form-config="vm.formConfig" model="vm.form"></form-tpl>
+form-config传入生成表单的配置，model指定表单的ng-model都绑到哪个键下
  示例：
-   vm.formConfig = {
+   form = {}
+   formConfig = {
 
      //生成表单的信息，包含验证及对应错误提示的设置
      fields: [
