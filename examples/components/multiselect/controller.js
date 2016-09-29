@@ -68,19 +68,20 @@ class MultiselectTestController {
                },
 
                //table内的操作按钮
-               operations: [
-                 {
-                   displayName: '查看',
-                   href: '#/city/detail/' //接受三种字段：state, href, action. action函数，接收当前条目id
-                 },
-                 {
-                   displayName: '删除',
-                   itemId: 'id', //标识每一列数据唯一性的字段名，它的值会作为第一个参数传给action
-                   action: function (itemId, tableParams) {
-                     tableParams.parameters({page: 1}).reload();
-                   }
-                 }
-               ],
+              operations: [
+                {
+                  displayName: '查看',
+                  itemId: 'id', //贫道链接后面的字段
+                  href: '#/city/detail/' //接受三种字段：state, href, action. action函数，接收当前条目id
+                },
+                {
+                  displayName: '删除',
+                  itemId: 'id', //标识每一列数据唯一性的字段名，它的值会作为第一个参数传给action
+                  action: function (itemId, tableParams) {
+                    tableParams.parameters({page: 1}).reload();
+                  }
+                }
+              ],
 
                //获得multiselect controller的引用来初始化this,这个函数会在读取配置后自动执行 initContrl
                //initContrl: function(this){
