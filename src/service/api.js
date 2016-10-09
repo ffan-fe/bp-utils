@@ -77,7 +77,7 @@ class Api {
  */
 function getDomain(url) {
   console.log('process.env.DEBUG', process.env.DEBUG);
-  let href = location.href;
+  let href = location.hostname;
 
   if(process.env.DEBUG || ~href.search('localhost') || /(\d+\.){3}\d{1,3}/.test(href)){
     return url;
