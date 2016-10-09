@@ -151,7 +151,8 @@ class MultiselectController {
         }
       });
     }
-    count == response.length ? this.isAllChecked = true : this.isAllChecked = false;
+    //修复数据条数为零全选的bug
+    count == response.length && response.length ? this.isAllChecked = true : this.isAllChecked = false;
 
   }
 
