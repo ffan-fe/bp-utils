@@ -3,6 +3,7 @@
 clone下来后：
 npm install
 启动server执行gulp
+运行测试执行 karma start
 
 生成示例页面：
 1.切到gh-pages分支

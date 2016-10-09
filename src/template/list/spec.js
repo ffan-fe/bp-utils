@@ -20,18 +20,11 @@ describe('List', () => {
 
   describe('Controller', () => {
     // controller specs
-    it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-      let controller = makeController();
-      expect(controller).to.have.property('name');
-    });
   });
 
   describe('Template', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
-    it('has name in template [REMOVE]', () => {
-      expect(ListTemplate).to.match(/{{\s?vm\.name\s?}}/g);
-    });
   });
 
   describe('Component', () => {
