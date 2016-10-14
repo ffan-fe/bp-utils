@@ -9,7 +9,8 @@
     "build:dist": "NODE_ENV=production webpack --config webpack.dist.js",
     "build:examples": "NODE_ENV=production webpack --config webpack.examples.js",
     "build": "npm run clean && npm run build:dist",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "test": "./node_modules/karma/bin/karma start"
   },
   "keywords": [
     "bp-utils",
