@@ -3,6 +3,10 @@
  * @export
  */
 export default function fixURL(url, config = {}) {
+  // 本地环境直接返回, 因为有代理
+  if (process && process.env && process.env.DEBUG) {
+    return url;
+  }
   //如果是完整的连接，直接返回, 这意思是绝对地址
   if(~url.search('http')){
     return url;
