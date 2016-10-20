@@ -2,19 +2,16 @@
  * 由于分离到不同的域名里面, 导致之前'/moon' 这类接口失效, 转换一次URL地址 
  * @export
  */
-export default function fixURL(url, config = {}) {
-  // 本地环境直接返回, 因为有代理
-  if (process && process.env && process.env.DEBUG) {
-    return url;
-  }
+export default function fixURL(url, config = {}, isDebug = false) {
+  console.log('isDebug', isDebug);
   //如果是完整的连接，直接返回, 这意思是绝对地址
   if(~url.search('http')){
     return url;
   }
   //
   let href = location.hostname;
-  // 本地调试的情况
-  if(process.env.DEBUG || ~href.search('localhost') || /(\d+\.){3}\d{1,3}/.test(href)){
+  // 本地环境直接返回, 因为有代理
+  if(isDebug || ~href.search('localhost') || /(\d+\.){3}\d{1,3}/.test(href)){
     return url;
   }
   // todo 这些个判断还有待改进啊...

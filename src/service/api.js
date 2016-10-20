@@ -12,11 +12,13 @@ export default class Api {
    * 
    * @param {Object} $http
    * @param {Object} $q
+   * @param {Object} $env 全局的是否在debug状态下
    */
-  constructor($http, $q) {
+  constructor($http, $q, $env) {
     "ngInject";
     this.$q = $q;
     this.$http = $http;
+    this.$env = $env;
   }
 
   /**
@@ -29,7 +31,7 @@ export default class Api {
   get(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: getDomain(url),
+      url: this.getDomain(url),
       method: 'get',
       params: params || {}
     }).then(
@@ -48,7 +50,7 @@ export default class Api {
   post(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: getDomain(url),
+      url: this.getDomain(url),
       data: $.param(params),
       method: "post",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
@@ -68,7 +70,7 @@ export default class Api {
   put(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: getDomain(url),
+      url: this.getDomain(url),
       data: $.param(params),
       method: "put",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
@@ -78,14 +80,14 @@ export default class Api {
     );
     return deferred.promise;
   }
-}
-/**
- * 根据不同环境返回对应的请求地址
- * -本地不做任何处理
- * @param url
- */
-function getDomain(url) {
-  return fixURL(url);
+  /**
+   * 根据不同环境返回对应的请求地址
+   * -本地不做任何处理
+   * @param url
+   */
+  getDomain(url) {
+    return fixURL(url, {}, this.$env.DEBUG);
+  }
 }
 /**
  * $http promise resolve 处理函数
