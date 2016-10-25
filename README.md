@@ -722,9 +722,9 @@ AlertService
 HintService.hint({title: "我操作成功了", content: "结果是：" + $scope.hintContent})
 ```
 
+### 一些已知问题：
 
-
-
+- 使用 date-view-format 时格式要保留完整的时间信息，类似 date-view-format="'HH:mm'" 这样的会导致后面的formatter报错，所以必须类似这样的：date-view-format="'YYYY-MM-DD HH:mm'"
 
 
 
