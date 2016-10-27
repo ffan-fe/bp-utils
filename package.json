@@ -10,6 +10,7 @@
     "build:examples": "NODE_ENV=production webpack --config webpack.examples.js",
     "build": "npm run clean && npm run build:dist",
     "clean": "rimraf dist",
+    "fancy": "cp -r ./src ../Anaheim/ && cp -r ./examples ../Anaheim/",
     "test": "./node_modules/karma/bin/karma start"
   },
   "keywords": [
