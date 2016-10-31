@@ -145,7 +145,7 @@ bp-large-than-form传入字段所在form的引用，这样才能找到要比较�
 - bp-datepicker
 ```
   示例：
-  <bp-datepicker model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
+  <bp-datepicker model="vm.time" datepicker-options="vm.datepickerOption" disabled="false"></bp-datepicker>
 
   this.datepickerOption = {
         minDate: new Date(),

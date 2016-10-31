@@ -2,118 +2,95 @@
  * Created by fjywan on 16/4/15.
  */
 
-import fixURL from '../tool/fixurl';
-
-export default class Api {
-
-  /**
-   * Creates an instance of Api.
-   * 注册为service, 为项目提供统一的ajax请求策略
-   * 
-   * @param {Object} $http
-   * @param {Object} $q
-   * @param {Object} $env 全局的是否在debug状态下
-   */
-  constructor($http, $q, $env) {
+class Api {
+  constructor($http, $q) {
     "ngInject";
     this.$q = $q;
     this.$http = $http;
-    this.$env = $env;
   }
 
-  /**
-   * send get request
-   * 
-   * @param {String} url
-   * @param {Object} params
-   * @returns {Promise}
-   */
   get(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: this.getDomain(url),
+      url: getDomain(url),
       method: 'get',
       params: params || {}
-    }).then(
-      responseHandler(deferred.resolve, deferred.reject),
-      errorHandler(deferred.reject)
-    );
+    }).then(function (raw) {
+      let result = raw.data;
+      if (result.status == 200) {
+        deferred.resolve(result.data);
+      } else {
+        deferred.reject(result);
+      }
+    }, function (raw) {
+      deferred.reject(raw);
+    });
     return deferred.promise;
   }
-  /**
-   * send post request 
-   * 
-   * @param {String} url
-   * @param {Object} params
-   * @returns
-   */
+
   post(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: this.getDomain(url),
+      url: getDomain(url),
       data: $.param(params),
       method: "post",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
-    }).then(
-      responseHandler(deferred.resolve, deferred.reject),
-      errorHandler(deferred.reject)
-    );
+    }).then(function (raw) {
+      let result = raw.data;
+      if (result.status == 200) {
+        deferred.resolve(result.data);
+      } else {
+        deferred.reject(result);
+      }
+    }, function (raw) {
+      deferred.reject(raw);
+    });
     return deferred.promise;
   }
-  /**
-   * send put request 
-   * 
-   * @param {String} url
-   * @param {Object} params
-   * @returns
-   */
+
   put(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: this.getDomain(url),
+      url: getDomain(url),
       data: $.param(params),
       method: "put",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
-    }).then(
-      responseHandler(deferred.resolve, deferred.reject),
-      errorHandler(deferred.reject)
-    );
+    }).then(function (raw) {
+      let result = raw.data;
+      if (result.status == 200) {
+        deferred.resolve(result.data);
+      } else {
+        deferred.reject(result);
+      }
+    }, function (raw) {
+      deferred.reject(raw);
+    });
     return deferred.promise;
   }
-  /**
-   * 根据不同环境返回对应的请求地址
-   * -本地不做任何处理
-   * @param url
-   */
-  getDomain(url) {
-    return fixURL(url, {}, this.$env.DEBUG);
-  }
 }
+
 /**
- * $http promise resolve 处理函数
- * 
- * @param {Function} resolve
- * @param {Function} reject
- * @returns {Function}
+ * 根据不同环境返回对应的请求地址
+ * -本地不做任何处理
+ * @param url
  */
-function responseHandler(resolve, reject) {
-  return response => {
-    if (response && response.data && response.data.status == 200) {
-      // 这里本来是取两层data返回的, 但是列表页要从上一层获取count, 所以统一都改成一层的.
-      resolve(response.data);
-    } else {
-      reject(response.data);
-    }
+function getDomain(url) {
+  //如果是完整的连接，直接返回
+  if(~url.search('http')){
+    return url;
   }
-}
-/**
- * $http promise reject 处理函数
- * 
- * @param {Function} reject
- * @returns {Function}
- */
-function errorHandler(reject) {
-  return response => {
-    reject(response);
+
+  let href = location.hostname;
+
+  if(process.env.DEBUG || ~href.search('localhost') || /(\d+\.){3}\d{1,3}/.test(href)){
+    return url;
   }
+
+  if(~href.search('sit')){
+    return 'http://admin.sit.ffan.com' + url;
+  }
+
+  return 'https://admin.ffan.com' + url;
 }
+
+export default Api
