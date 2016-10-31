@@ -68,6 +68,9 @@ export default class Datepicker {
   }
 
   togglePop() {
+    if(this.disabled){
+      return;
+    }
     if (!this.pop) {
       this.$rootScope.calendars.forEach(v => {
         v.scope.vm.pop = false

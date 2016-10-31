@@ -3,7 +3,6 @@
  * @author name
  */
 
-import angular from 'angular';
 import component from './component.js';
 
 'use strict';

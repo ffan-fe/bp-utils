@@ -22,7 +22,7 @@ class Controller {
     };
 
     const exampleCode = `
-      <bp-datepicker model="vm.time" datepicker-options="vm.datepickerOption"></bp-datepicker>
+      <bp-datepicker model="vm.time" disabled="false" datepicker-options="vm.datepickerOption"></bp-datepicker>
 
       this.datepickerOption = {
             minDate: new Date(),

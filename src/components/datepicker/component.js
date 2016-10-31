@@ -19,7 +19,8 @@ export default class datepickerDirective {
 
     this.scope = {
       model: '=',
-      datepickerOptions: '='
+      datepickerOptions: '=',
+      disabled: '='
     };
 
     this.link = (scope, element, attrs) => {

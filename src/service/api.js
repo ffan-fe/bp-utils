@@ -3,9 +3,8 @@
  */
 
 class Api {
-  constructor($http, $q, APIBASE) {
+  constructor($http, $q) {
     "ngInject";
-    this.base = APIBASE ? APIBASE : '';
     this.$q = $q;
     this.$http = $http;
   }
@@ -13,7 +12,7 @@ class Api {
   get(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: this.base + url,
+      url: getDomain(url),
       method: 'get',
       params: params || {}
     }).then(function (raw) {
@@ -32,7 +31,7 @@ class Api {
   post(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: this.base + url,
+      url: getDomain(url),
       data: $.param(params),
       method: "post",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
@@ -52,7 +51,7 @@ class Api {
   put(url, params) {
     let deferred = this.$q.defer();
     this.$http({
-      url: this.base + url,
+      url: getDomain(url),
       data: $.param(params),
       method: "put",
       headers: {"Content-Type": "application/x-www-form-urlencoded"}
@@ -68,6 +67,30 @@ class Api {
     });
     return deferred.promise;
   }
+}
+
+/**
+ * 根据不同环境返回对应的请求地址
+ * -本地不做任何处理
+ * @param url
+ */
+function getDomain(url) {
+  //如果是完整的连接，直接返回
+  if(~url.search('http')){
+    return url;
+  }
+
+  let href = location.hostname;
+
+  if(process.env.DEBUG || ~href.search('localhost') || /(\d+\.){3}\d{1,3}/.test(href)){
+    return url;
+  }
+
+  if(~href.search('sit')){
+    return 'http://admin.sit.ffan.com' + url;
+  }
+
+  return 'https://admin.ffan.com' + url;
 }
 
 export default Api

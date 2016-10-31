@@ -83,10 +83,10 @@ class MultiselectTestController {
                 }
               ],
 
-               //获得multiselect controller的引用来初始化this,这个函数会在读取配置后自动执行 initContrl
-               //initContrl: function(this){
-               //  //do sth
-               // }
+               //获得multiselect controller的引用来初始化this,这个函数会在读取配置后自动执行
+                //     initContrl: that => {
+                 //      this.listTableParams = that.tableParams;
+                 //    }
              };
 
     `;

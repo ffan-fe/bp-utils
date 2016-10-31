@@ -5,7 +5,8 @@
 import directives from './directive/index.js'
 import components from './components/index.js'
 import template from './template/index.js'
-import services from './service/index.js'
+import services from './service/index.js';
+import fixURL from './tool/fixurl';
 
 let bpUtils = angular.module('bp.utils',[
   directives.name,
@@ -15,3 +16,5 @@ let bpUtils = angular.module('bp.utils',[
 ]);
 
 export default bpUtils;
+
+export let fixDomain = fixURL;
