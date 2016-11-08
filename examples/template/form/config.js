@@ -222,6 +222,14 @@ let config = {
           required: true
         },
         url: 'get/Typeahead/'
+      },
+      {
+        type: 'daterange',
+        displayName: '测试daterange',
+        name: ['testdaterange', 'testdaterange2'],
+        validateRules: {
+          required: true
+        }
       }
     ]
   },

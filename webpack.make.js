@@ -123,8 +123,10 @@ module.exports = function makeWebpackConfig(options) {
         // Reference: https://github.com/webpack/raw-loader
         // Allow loading html through js
         test: /\.html$/,
+        exclude: /formtpl\.html$/,
         loader: 'raw'
       },
+      {test: /formtpl\.html$/, loader: 'raw!ng-include-loader'},
       {test: /\.less$/, loader: 'style!css!less'},
       {test: /\.css$/, loader: 'style!css'}]
   };
