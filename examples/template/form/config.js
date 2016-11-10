@@ -222,6 +222,43 @@ let config = {
           required: true
         },
         url: 'get/Typeahead/'
+      },
+      {
+        type: 'datetimerange',
+        displayName: '测试daterange',
+        name: ['testdaterange', 'testdaterange2'],
+        validateRules: {
+          required: true
+        },
+        config: {
+          viewFormat: 'YYYY-MM-DD HH:mm:ss',
+          modelFormat: 'x',
+          placeholder: ['测试1', '测试2']
+        }
+      },
+      {
+        type: 'daterange',
+        displayName: '测试daterange',
+        name: ['testdaterange1', 'testdaterange2'],
+        validateRules: {
+          required: true
+        },
+        config: {
+          modelFormat: 'x'
+        }
+      },
+      {
+        type: 'timerange',
+        displayName: '测试timerange',
+        name: ['testtimerange1', 'testtimerange2'],
+        validateRules: {
+          required: true
+        },
+        config: {
+          viewFormat: 'YYYY-MM-DD HH:mm:ss',
+          modelFormat: 'x',
+          showSeconds: false
+        }
       }
     ]
   },

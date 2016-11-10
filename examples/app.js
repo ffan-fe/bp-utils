@@ -9,7 +9,6 @@ import 'ui-select/dist/select.css'
 import 'prismjs/themes/prism.css';
 import 'lodash'
 import 'restangular'
-import 'ffan-bp-menu'
 import 'bp-admin-skin'
 import 'angular-touch'
 import 'textangular'
@@ -44,7 +43,6 @@ angular.module('app', [
   'ui.bootstrap',
   'ngTable',
   'ui.select',
-  'bp.menu',
   'restangular',
   'ngTouch',
   'angular-loading-bar',
