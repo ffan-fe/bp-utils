@@ -1,0 +1,15 @@
+{
+  "note": "This is a apimocker config file.",
+  "quiet": false,
+  "port": "8080",
+  "latency": 50,
+  "proxyURL": "http://admin.sit.ffan.com/",
+  "allowedHeaders": ["Content-Type", "my-custom-header"],
+  "webServices": {
+    "test": {
+      "mockFile": "test.json",
+      "latency": 20,
+      "verbs": ["get"]
+    }
+  }
+}

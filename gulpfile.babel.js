@@ -17,6 +17,9 @@ import colorsSupported      from 'supports-color';
 import minimist from 'minimist';
 import proxy from 'http-proxy-middleware';
 
+var mocker = require('gulp-apimocker');
+
+
 let root = 'examples';
 
 // helper method for resolving paths
@@ -42,7 +45,7 @@ let paths = {
 
 
 let chuckNorrisApiProxy = proxy(['/marketcms', '/Public', '/goods', '/Database'], {
-  target: 'http://admin.sit.ffan.com/',
+  target: 'http://localhost:8080',
   changeOrigin: true,
   logLevel: 'debug',
   headers:{
@@ -87,6 +90,13 @@ gulp.task('serve', () => {
       webpachHotMiddelware(compiler),
       chuckNorrisApiProxy
     ]
+  });
+});
+
+gulp.task('apimocker', function(){
+  return mocker.start({
+    config: 'mock.config.json',
+    mockDirectory: 'mocks/'
   });
 });
 
